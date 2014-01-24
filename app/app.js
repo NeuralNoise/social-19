@@ -13,7 +13,7 @@ define([
     // Add your modules routing here
     Router.route("*path", "default", function (path) {
 
-        this.loadModule("src/DefaultBundle/Main",{path:path});
+        this.loadModule("src/DefaultBundle/Main",{path:path,'Router':Router});
     });
 
     return {

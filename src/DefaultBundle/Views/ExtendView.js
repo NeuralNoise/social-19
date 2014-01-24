@@ -18,15 +18,15 @@ define([
                 if(typeof title !== 'string' && typeof title !== 'number') {
                     return false;
                 }
-                $(this.title_selector).fadeOut(function(){
-                    $(this).text(title).fadeIn();
+                $(this.title_selector).fadeOut('100',function(){
+                    $(this).text(title).fadeIn('100');
                 });
             },
             showContent:function(template) {
                 var $this = this;
-                this.$el.fadeOut(function(){
+                this.$el.fadeOut('100',function(){
                     $this.$el.html(template);
-                    $(this).fadeIn();
+                    $(this).fadeIn('100');
                 });
                 return this;
             }

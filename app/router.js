@@ -9,7 +9,8 @@ define(["backbone"], function (Backbone) {
     var Router = Backbone.Router.extend({
 
         loadModule: function (module,options) {
-            require([module], function (module,options) {
+
+            require([module], function (module) {
                 module(options);
             });
         }

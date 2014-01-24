@@ -19,18 +19,14 @@ define([
             template: _.template(HomeTemplate),
             initialize:function()
             {
-
                 this.render();
-
             },
+
             render:function(){
                 this.changeTitle(this.title);
                 this.showContent(this.template());
                 return this;
             }
-
-
-
 
         });
 
