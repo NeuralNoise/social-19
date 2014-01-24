@@ -1,0 +1,7 @@
+.idea
+.idea/*
+dist/*
+vendors
+vendors/*
+node_modules
+node_modules/*
