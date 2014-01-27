@@ -14,6 +14,7 @@ define([
             el:'.inner-content',
             title:'Welcome to Social Network. Join to us!!!',
             title_selector: '.custom-header h1',
+
             changeTitle:function(title){
                 if(typeof title !== 'string' && typeof title !== 'number') {
                     return false;
@@ -22,6 +23,7 @@ define([
                     $(this).text(title).fadeIn('100');
                 });
             },
+
             showContent:function(template) {
                 var $this = this;
                 this.$el.fadeOut('100',function(){
@@ -29,6 +31,13 @@ define([
                     $(this).fadeIn('100');
                 });
                 return this;
+            },
+            remove:function() {
+                this.stopListening();
+                this.undelegateEvents();
+                console.log('extend remove init');
+                return true;
+
             }
          });
 

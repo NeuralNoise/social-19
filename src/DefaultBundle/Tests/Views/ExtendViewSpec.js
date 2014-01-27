@@ -26,6 +26,11 @@ define(['src/DefaultBundle/Views/ExtendView'],function(ExtendView){
             expect(extendView.changeTitle('title')).toBeUndefined();
             expect(extendView.changeTitle({a:5})).toBeFalsy();
         });
+        it('should contain "remove" method',function(){
+           var extendView = new ExtendView();
+           expect(extendView.remove()).toBeTruthy();
+        });
+
 
 
     });

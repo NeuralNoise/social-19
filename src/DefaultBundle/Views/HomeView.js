@@ -13,7 +13,7 @@ define([
 
         'use strict';
 
-        var SignView = ExtendView.extend({
+        var HomeView = ExtendView.extend({
 
             title:'Welcome to Social Network. Join to us!!!',
             template: _.template(HomeTemplate),
@@ -30,5 +30,5 @@ define([
 
         });
 
-        return SignView;
+        return HomeView;
     });
