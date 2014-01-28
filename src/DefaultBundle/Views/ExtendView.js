@@ -32,6 +32,15 @@ define([
                 });
                 return this;
             },
+
+            formToJSON:function(formSelector,exludeAttributes){
+                var data = {};
+                $(formSelector + ' input, '+formSelector+' textarea').not('input[type=submit]').each(function(){
+                   data[$(this).attr('name')] = $(this).val();
+                });
+                return data;
+            },
+
             remove:function() {
                 this.stopListening();
                 this.undelegateEvents();

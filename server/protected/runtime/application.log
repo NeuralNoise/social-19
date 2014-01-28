@@ -1,0 +1,24 @@
+2014/01/28 09:22:22 [error] [exception.CException] exception 'CException' with message 'UsersController and its behaviors do not have a method or closure named "sendJSON".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CComponent.php:266
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php(78): CComponent->__call('sendJSON', Array)
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php(78): UsersController->sendJSON(Array)
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\actions\CInlineAction.php(49): UsersController->actionCreate()
+#3 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(291): CFilterChain->run()
+#10 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(282): CController->run('create')
+#12 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('users/create')
+#13 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/server/users/create
+HTTP_REFERER=http://social.loc/public/
+---
+2014/01/28 09:30:06 [warning] [application] Failed to set unsafe attribute "wait" of "Users".
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (74)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)

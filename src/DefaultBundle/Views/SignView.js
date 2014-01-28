@@ -6,10 +6,11 @@ define([
     'underscore',
     'backbone',
     './ExtendView',
+    '../Models/UserModel',
     'text!../Templates/SignFormTemplate.html'
 
 ],
-    function ($, _, Backbone,ExtendView, SignFormTemplate) {
+    function ($, _, Backbone,ExtendView,UserModel, SignFormTemplate) {
 
         'use strict';
 
@@ -17,7 +18,6 @@ define([
             title:'Sign In',
             type:null,
             template: _.template(SignFormTemplate),
-
             events:{
                 'submit #signForm':'submit'
             },
@@ -43,7 +43,25 @@ define([
 
             submit:function(event){
                 event.preventDefault();
-                console.log('submit triggered');
+                if(this.type==='sign_up') {
+                    var $target = $(event.target);
+                    var data = this.formToJSON('#'+$target.attr('id'));
+                    delete data.confirm_password;
+                    var userModel = new UserModel();
+                    userModel.url = userModel.url+'/create';
+                    userModel.save(data,{
+                        wait:true,
+                        success:function(model, response){
+                            if(response.status===200) {
+                                var router = new  Backbone.Router();
+                                router.navigate('/dashboard',{trigger:true});
+                            }
+
+                        }
+                    });
+
+                }
+
             }
 
            /* remove:function(){
