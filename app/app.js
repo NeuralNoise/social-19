@@ -5,7 +5,14 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app/router'
+    'app/router',
+    'public/assets/js/jquery.ui.widget',
+    'public/assets/js/metro.min',
+    'public/assets/js/metro-pull',
+    'public/assets/js/metro-dropdown',
+    'public/assets/js/metro-input-control',
+    'public/assets/js/metro-core'
+
 ], function ($, _, Backbone, Router) {
 
     'use strict';

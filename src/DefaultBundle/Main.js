@@ -8,6 +8,7 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView"], function (MainVi
 
         //Initialize base Front view
         var mainView = new MainView();
+        $.Metro.initDropdowns();
 
         //Create Router
         if(path === null) {
@@ -23,6 +24,7 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView"], function (MainVi
         Router.route('sign_in','sing_in',function(){
             console.log('sing_in')
             var singView = new SignView();
+
             this.swap(singView);
 
 

@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Sharykhin/js-project.git"
+    "url": "https://github.com/Sharykhin/social.git"
   },
   "author": "Siarhei Sharykhin",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/Sharykhin/js-project/issues"
+    "url": "https://github.com/Sharykhin/social/issues"
   },
-  "homepage": "https://github.com/Sharykhin/js-project",
+  "homepage": "https://github.com/Sharykhin/social",
   "dependencies": {
     "grunt-template-jasmine-requirejs": "~0.1.8",
     "grunt": "~0.4.2",

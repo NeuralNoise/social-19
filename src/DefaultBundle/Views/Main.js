@@ -17,7 +17,7 @@ define([
             template: _.template(DefaultTemplate),
             initialize:function()
             {
-                this.setStyle('style.css').setScript('jquery.ui.widget.js').setScript('metro-core.js').setScript('metro-dropdown.js').setScript('metro-pull.js').setScript('metro.min.js');
+                this.setStyle('style.css');
                 this.render();
 
             },

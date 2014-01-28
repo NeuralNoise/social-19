@@ -23,6 +23,7 @@ define([
             },
             initialize:function(options)
             {
+
                 this.listenTo(this,'all',this.remove,this);
                 if(options !== undefined) {
                     this.type = options.type;
