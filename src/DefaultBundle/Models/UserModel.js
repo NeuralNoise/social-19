@@ -24,7 +24,7 @@ define([
                 },
 
                 validate:function(attrs,options){
-
+                    console.log(options);
                 },
 
                 url:'/server/users'

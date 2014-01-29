@@ -5,25 +5,30 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!../Templates/DefaultTemplate.html'
+    './ExtendView',
+    'text!../Templates/DefaultTemplate.html',
+    'public/assets/js/metro-dropdown'
 
 ],
-    function ($, _, Backbone, DefaultTemplate) {
+    function ($, _, Backbone,ExtendView, DefaultTemplate) {
 
         'use strict';
 
-        var MainView = Backbone.View.extend({
+        var MainView = ExtendView.extend({
             el:$('.container'),
             template: _.template(DefaultTemplate),
             initialize:function()
             {
-                this.setStyle('style.css').setScript('jquery.ui.widget.js').setScript('metro-core.js').setScript('metro-dropdown.js').setScript('metro-pull.js').setScript('metro.min.js');
+
+                this.setStyle('style.css');
                 this.render();
+
 
             },
 
             render:function(){
                 this.$el.html(this.template());
+                $.Metro.initDropdowns();
                 return this;
             },
             setStyle:function(css) {

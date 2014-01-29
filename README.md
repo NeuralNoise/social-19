@@ -1,11 +1,11 @@
 Requirements:
 
-    node : http://nodejs.org
+    node : http://nodejs.org\n
     bower
 
 Installation:
 
-   run: npm install - it installs all requirements tasks
+   run: npm install - it installs all requirements tasks\n
    run: bower install - it installs all requirements vendors
 
 Usage:

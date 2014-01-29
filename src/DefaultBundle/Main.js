@@ -3,22 +3,22 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView"], function (MainVi
     'use strict';
 
     return function (options) {
+        //Get Url path
         var path = options.path;
+        //Create Router
         var Router = options.Router;
 
         //Initialize base Front view
+        console.log('current url path is : '+path);
         var mainView = new MainView();
 
-        //Create Router
+
+
         if(path === null) {
-           Router.navigate("#/",{trigger:true,replace: true});
+           var homeView = new HomeView();
         }
 
-        Router.route('','home',function(){
-            console.log('home')
-            var homeView = new HomeView();
-            this.swap(homeView);
-        });
+        //Initialize route of this bundle
 
         Router.route('sign_in','sing_in',function(){
             console.log('sing_in')
@@ -34,6 +34,8 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView"], function (MainVi
             this.swap(singView);
 
         });
+
+
 
 
 

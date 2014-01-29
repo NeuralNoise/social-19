@@ -15,9 +15,19 @@
             'underscore': {
                 exports: '_'
             },
+            'jquery':{
+                exports: '$'
+            },
+
             'backbone':{
                 deps:['jquery','underscore'],
                 exports:'Backbone'
+            },
+            'public/assets/js/jquery.ui.widget':{
+                deps:['jquery']
+            },
+            'public/assets/js/metro-core':{
+                deps:['public/assets/js/jquery.ui.widget']
             }
         }
     });

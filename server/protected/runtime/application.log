@@ -22,3 +22,24 @@ HTTP_REFERER=http://social.loc/public/
 2014/01/28 09:30:06 [warning] [application] Failed to set unsafe attribute "wait" of "Users".
 in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (74)
 in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/01/29 08:36:10 [warning] [application] Failed to set unsafe attribute "silent" of "Users".
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (74)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/01/29 08:36:48 [warning] [application] Failed to set unsafe attribute "silent" of "Users".
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (74)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/01/29 08:39:00 [warning] [application] Failed to set unsafe attribute "silent" of "Users".
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (49)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/01/29 08:41:21 [warning] [application] Failed to set unsafe attribute "silent" of "Users".
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (49)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/01/29 08:41:32 [warning] [application] Failed to set unsafe attribute "silent" of "Users".
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (49)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/01/29 08:44:33 [warning] [application] Failed to set unsafe attribute "validate" of "Users".
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (49)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/01/29 08:45:26 [warning] [application] Failed to set unsafe attribute "validate" of "Users".
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (49)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
