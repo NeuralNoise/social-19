@@ -5,7 +5,8 @@ Requirements:
 
 Installation:
 
-   run: npm install - it installs all requirements tasks\n
+   run: npm install - it installs all requirements tasks
+
    run: bower install - it installs all requirements vendors
 
 Usage:

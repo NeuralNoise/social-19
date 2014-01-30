@@ -42,7 +42,7 @@ define([
              * Add template in block which was specified by "el" property of View
              * @param template string - html template
              * @param callback - optional parameter, a callback function which will be called  when a new template will be shown
-             * @returns {itself}
+             * @returns {object} itself
              */
             showContent:function(template,callback) {
                 var $this = this;
@@ -57,7 +57,7 @@ define([
              * Method take a form data and return json format of these data
              * @param formSelector - jquery selector of form
              * @param excludeAttributes - which attributes will be excluded
-             * @returns {object of form data}
+             * @returns {object} data
              */
             formToJSON:function(formSelector,excludeAttributes){
                 var data = {};

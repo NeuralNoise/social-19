@@ -23,13 +23,15 @@ module.exports = function(grunt) {
                     $:true,
                     console:true
 
-                }
+                },
+                '-W117':false,
+                ignores:['src/**/*Spec.js']
 
             },
             files: {
-                src: ['public/**/.js']
-
+                src: ['public/**/.js','src/**/*.js']
             }
+
         },
 
         jasmine: {
@@ -88,6 +90,17 @@ module.exports = function(grunt) {
                 tasks:['jasmine','jshint']
 
             }
+        },
+        jsdoc : {
+            dist : {
+                jsdoc:'./node_modules/.bin/jsdoc',
+                src: ['src/**/*.js'],
+                options: {
+                    destination: 'app/doc'
+                }
+
+            }
+
         }
 
 
@@ -98,8 +111,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-exec');
+    grunt.loadNpmTasks('grunt-jsdoc');
 
 
     grunt.registerTask('test',['connect','jshint','jasmine','watch']);
-    grunt.registerTask('build',['exec']);
+    grunt.registerTask('build',['exec:build']);
+    grunt.registerTask('doc',['jsdoc:dist']);
 };

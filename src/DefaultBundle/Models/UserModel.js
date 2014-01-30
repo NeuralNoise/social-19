@@ -23,8 +23,14 @@ define([
                     sex:'male'
                 },
 
+
                 validate:function(attrs,options){
-                    console.log(options);
+
+                    if($.trim(attrs.email) === '' ) {
+//                       console.log('here');
+                       return 'here';
+                    }
+
                 },
 
                 url:'/server/users'

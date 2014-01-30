@@ -1,6 +1,8 @@
 .idea
 .idea/*
 dist/*
+app/doc/*
+server/assets/*
 vendors
 vendors/*
 node_modules

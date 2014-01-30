@@ -1,6 +1,9 @@
 /*jslint regexp: true, nomen: true, sloppy: true */
 /*global requirejs, require, define, $, Backbone, console */
-
+/**
+ * @file - Describe SignView
+ * @author Siarhei Sharykhin
+ */
 define([
     'jquery',
     'underscore',
@@ -24,7 +27,7 @@ define([
             },
             initialize:function(options)
             {
-                this.listenTo(this,'all',this.remove,this);
+
                 if(options !== undefined) {
                     this.type = options.type;
                     if(this.type === 'sign_up') {
@@ -53,19 +56,25 @@ define([
                     var $target = $(event.target);
                     var data = this.formToJSON('#'+$target.attr('id'));
                     delete data.confirm_password;
-                    var userModel = new UserModel(data);
+                    var userModel = new UserModel();
 
-                    userModel.url = userModel.url+'/create';
-                    userModel.save(null,{wait:true}).done(function(response){
-
-                            console.log(response);
-                            /*if(response.status===200) {
-                                var router = new  Backbone.Router();
-                                router.navigate('/dashboard',{trigger:true});
-                            }*/
-
-                        });
-
+                    if(userModel.validation('#'+$target.attr('id'))){
+                       userModel.url = userModel.url+'/create';
+                       userModel.save(data,{
+                           success:function(response){
+                               console.log(response);
+                               //if(response.status===200) {
+                               //  var router = new  Backbone.Router();
+                               //  router.navigate('/dashboard',{trigger:true});
+                               //}
+                           },
+                           wait:true,
+                           validate:false,
+                           error:function(model,error){
+                               console.log(model);
+                           }
+                       });
+                   }
 
                 }
 

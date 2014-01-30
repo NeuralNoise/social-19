@@ -21,7 +21,7 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView"], function (MainVi
         //Initialize route of this bundle
 
         Router.route('sign_in','sing_in',function(){
-            console.log('sing_in')
+            console.log('sing_in');
             var singView = new SignView();
             this.swap(singView);
 
@@ -29,7 +29,7 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView"], function (MainVi
         });
 
         Router.route('sign_up','sing_up',function(){
-            console.log('sing_up')
+            console.log('sing_up');
             var singView = new SignView({type:'sign_up'});
             this.swap(singView);
 
