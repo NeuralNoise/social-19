@@ -28,6 +28,9 @@
             },
             'public/assets/js/metro-core':{
                 deps:['public/assets/js/jquery.ui.widget']
+            },
+            'public/assets/js/metro-notify':{
+                deps:['public/assets/js/jquery.ui.widget']
             }
         }
     });

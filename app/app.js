@@ -7,7 +7,8 @@ define([
     'backbone',
     'app/router',
     'public/assets/js/jquery.ui.widget',
-    'public/assets/js/metro-core'
+    'public/assets/js/metro-core',
+    'public/assets/js/metro-notify'
 ], function ($, _, Backbone, Router) {
 
     'use strict';

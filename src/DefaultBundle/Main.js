@@ -1,4 +1,8 @@
-define([ "./Views/Main","./Views/SignView","./Views/HomeView"], function (MainView,SignView,HomeView) {
+/**
+ * DefaultBundle
+ * @namespace DefaultBundle
+ */
+define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/DashboardView'], function (MainView,SignView,HomeView,DashboardView) {
 
     'use strict';
 
@@ -32,6 +36,13 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView"], function (MainVi
             console.log('sing_up');
             var singView = new SignView({type:'sign_up'});
             this.swap(singView);
+
+        });
+
+        Router.route('dashboard','dashboard',function(){
+            console.log('dashboard');
+            var dashboardView = new DashboardView();
+            this.swap(dashboardView);
 
         });
 

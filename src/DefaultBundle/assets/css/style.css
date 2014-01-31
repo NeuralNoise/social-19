@@ -4,3 +4,4 @@ img {margin: 10px;}
 .custom-logo    {float: left; margin-right: 15px;}
 .custom-clear   {clear: both; margin-top: 50px;}
 .input-error    {border: 1px solid #FF0000 !important;}
+.input-error-verify  {border: 1px solid #FF0000 !important;}

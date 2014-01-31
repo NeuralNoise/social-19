@@ -45,7 +45,10 @@ class UsersController extends Controller
 		if(isset($_POST))
 		{
             $data = json_decode(file_get_contents("php://input"),true);
-
+            $ckeckExistingUser = Users::model()->findByAttributes(array('email'=>$data['email']));
+            if($ckeckExistingUser) {
+                $this->sendJSON(array('status'=>500,'msg'=>'Sorry! But current email already exists'));
+            }
 			$model->attributes=$data;
             if($model->save(false)) {
 				$this->sendJSON(array('status'=>200,'id'=>$model->id));

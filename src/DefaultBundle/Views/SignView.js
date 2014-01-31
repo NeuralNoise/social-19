@@ -1,9 +1,3 @@
-/*jslint regexp: true, nomen: true, sloppy: true */
-/*global requirejs, require, define, $, Backbone, console */
-/**
- * @file - Describe SignView
- * @author Siarhei Sharykhin
- */
 define([
     'jquery',
     'underscore',
@@ -44,11 +38,7 @@ define([
 
                 return this;
             },
-            /**
-             * Method called when user click on "sign in" or "sign up", and depending of the parameter
-             * method stores user or authorizes
-             * @param event - object event of click
-             */
+
             submit:function(event){
                 console.log('click is init');
                 event.preventDefault();
@@ -57,16 +47,24 @@ define([
                     var data = this.formToJSON('#'+$target.attr('id'));
                     delete data.confirm_password;
                     var userModel = new UserModel();
-
-                    if(userModel.validation('#'+$target.attr('id'))){
+                    var errorsValidation = userModel.validation('#'+$target.attr('id'));
+                    if(!errorsValidation.exists){
                        userModel.url = userModel.url+'/create';
                        userModel.save(data,{
-                           success:function(response){
+                           success:function(model,response){
                                console.log(response);
-                               //if(response.status===200) {
-                               //  var router = new  Backbone.Router();
-                               //  router.navigate('/dashboard',{trigger:true});
-                               //}
+                               if(response.status===500) {
+                                   $.Notify({
+                                       content: response.msg,
+                                       caption:"Info",
+                                       style:{background:'#971515',color:'#FFFFFF'}
+                                   });
+
+                               }
+                               if(response.status===200) {
+                                 var router = new  Backbone.Router();
+                                 router.navigate('/dashboard',{trigger:true});
+                               }
                            },
                            wait:true,
                            validate:false,
@@ -74,7 +72,17 @@ define([
                                console.log(model);
                            }
                        });
-                   }
+                   } else {
+                        _.each(errorsValidation.messages,function(msg,index){
+                            $.Notify({
+                                content: msg,
+                                caption:"Info",
+                                style:{background:'#971515',color:'#FFFFFF'}
+                            });
+                        });
+
+
+                    }
 
                 }
 
