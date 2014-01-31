@@ -1,13 +1,25 @@
 /**
- * DefaultBundle
+ * @file FrontEnd side of application
  * @namespace DefaultBundle
+ * @desc FrontEnd side of application
  */
 define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/DashboardView'], function (MainView,SignView,HomeView,DashboardView) {
 
     'use strict';
-
+    /**
+     * @method anonymous function
+     * @author Siarhei Sharykhin
+     * @private
+     * @param {object} options inner parameters such global Router object, router path
+     * @type {function}
+     * @memberof DefaultBundle
+     */
     return function (options) {
-        //Get Url path
+        /**
+         * Get route path
+         * @type {string}
+         * @private
+         */
         var path = options.path;
         //Create Router
         var Router = options.Router;

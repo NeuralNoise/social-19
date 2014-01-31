@@ -1,6 +1,3 @@
-/*jslint regexp: true, nomen: true, sloppy: true */
-/*global requirejs, require, define, $, Backbone, console */
-
 define([
     'jquery',
     'underscore',
@@ -13,7 +10,13 @@ define([
     function ($, _, Backbone,ExtendView, DashboardTemplate) {
 
         'use strict';
-
+        /**
+         * @class DashboardView
+         * @desc Initialize view of user's dashboard after sign in/up
+         * @returns {object} DashboardView
+         * @author Siarhei Sharykhin
+         * @memberof  DefaultBundle
+         */
         var DashboardView = ExtendView.extend({
             el:$('.container'),
             title:'Dashboard',

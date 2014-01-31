@@ -1,5 +1,6 @@
-/*jslint regexp: true, nomen: true, sloppy: true */
-/*global requirejs, require, define */
+/**
+ * @file base application instance
+ */
 
 define([
     'jquery',
@@ -17,6 +18,7 @@ define([
     // Add your modules routing here
     Router.route("*path", "default", function (path) {
         console.log('new view init');
+
         this.loadModule("src/DefaultBundle/Main",{path:path,'Router':Router});
 
     });
