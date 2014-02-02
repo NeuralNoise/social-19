@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 
         jasmine: {
 
-            src: 'src/**/*.js',
+            src: 'src/**/*Spec.js',
             options: {
                 host: 'http://127.0.0.1:8000/',
                 template: require('grunt-template-jasmine-requirejs'),
@@ -47,16 +47,29 @@ module.exports = function(grunt) {
                             'jquery': 'vendors/jquery/jquery',
                             'underscore': 'vendors/underscore/underscore',
                             'backbone': 'vendors/backbone/backbone',
-                            "text": 'vendors/require-text/text'
+                            'text': 'vendors/requirejs-text/text'
                         },
                         shim: {
+                            'jquery':{
+                                exports: '$'
+                            },
                             'underscore': {
                                 exports: '_'
                             },
                             'backbone':{
                                 deps:['jquery','underscore'],
                                 exports:'Backbone'
+                            },
+                            'public/assets/js/jquery.ui.widget':{
+                                deps:['jquery']
+                            },
+                            'public/assets/js/metro-core':{
+                                deps:['public/assets/js/jquery.ui.widget']
+                            },
+                            'public/assets/js/metro-notify':{
+                                deps:['public/assets/js/jquery.ui.widget']
                             }
+
                         }
 
                     }

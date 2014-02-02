@@ -54,8 +54,8 @@ define([
 
                 emailValidation: function(value){
                     var regV = /[a-z0-9]{1,20}@[a-z0-9]{1,20}\.[a-z]{2,4}/;
-                    if(value.search(regV) != -1) {
-                        return true
+                    if(value.search(regV) !== -1) {
+                        return true;
                     } else {
                         return false;
                     }

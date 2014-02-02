@@ -11,7 +11,7 @@ define(['jquery','src/DefaultBundle/Models/BaseModel'],function($,BaseModel){
 
         it('should have "validation" method',function(){
             expect(baseModel.validation()).toBeDefined();
-        })
+        });
 
 
 

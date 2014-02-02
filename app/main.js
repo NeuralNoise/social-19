@@ -7,7 +7,7 @@
             'jquery': 'vendors/jquery/jquery',
             'underscore': 'vendors/underscore/underscore',
             'backbone': 'vendors/backbone/backbone',
-            'text': 'vendors/require-text/text'
+            'text': 'vendors/requirejs-text/text'
 
         },
 
