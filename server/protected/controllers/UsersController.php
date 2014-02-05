@@ -31,6 +31,15 @@ class UsersController extends Controller
 		));
 	}
 
+    public function actionAuthenticate()
+    {
+        if(isset($_SESSION['uid'])) {
+            $this->sendJSON(array('uid'=>$_SESSION['uid']));
+        } else {
+            $this->sendJSON(array('uid'=>null));
+        }
+    }
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -51,6 +60,7 @@ class UsersController extends Controller
             }
 			$model->attributes=$data;
             if($model->save(false)) {
+                Yii::app()->session->add('uid', $model->id);
 				$this->sendJSON(array('status'=>200,'id'=>$model->id));
             } else {
                 $this->sendJSON(array('status'=>500));
@@ -83,6 +93,26 @@ class UsersController extends Controller
 			'model'=>$model,
 		));
 	}
+
+    public function actionLogout()
+    {
+        Yii::app()->getSession()->destroy();
+        $this->sendJSON(array('status'=>200));
+    }
+
+    public function actionLogin()
+    {
+        if(isset($_POST['data'])) {
+            $data = $_POST['data'];
+            $model = Users::model()->findByAttributes(array('email'=>$data['email'],'password'=>$data['password']));
+            if($model) {
+
+                Yii::app()->session->add('uid', $model->id);
+                $this->sendJSON(array('status'=>200));
+            }
+
+        }
+    }
 
 	/**
 	 * Deletes a particular model.

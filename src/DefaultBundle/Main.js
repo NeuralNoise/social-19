@@ -3,7 +3,7 @@
  * @namespace DefaultBundle
  * @desc FrontEnd side of application
  */
-define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/DashboardView'], function (MainView,SignView,HomeView,DashboardView) {
+define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/DashboardView','../CommonBundle/User/User'], function (MainView,SignView,HomeView,DashboardView,User) {
 
     'use strict';
     /**
@@ -28,7 +28,11 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
         console.log('current url path is : '+path);
         var mainView = new MainView();
         $.Metro.initDropdowns();
-
+        var user = new User();
+        if(user.uid !== null) {
+            Router.navigate('#/dashboard',{triger:true});
+        }
+        console.log(user);
 
 
         if(path === null) {
@@ -39,11 +43,8 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
 
         Router.route('sign_in','sing_in',function(){
             console.log('sing_in');
-            var singView = new SignView();
-
+            var singView = new SignView({type:'sign_in'});
             this.swap(singView);
-
-
         });
 
         Router.route('sign_up','sing_up',function(){

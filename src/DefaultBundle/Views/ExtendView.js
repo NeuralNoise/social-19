@@ -34,8 +34,8 @@ define([
                 if(typeof title !== 'string' && typeof title !== 'number') {
                     return false;
                 }
-                $(this.title_selector).removeClass('rotateIn').removeClass('animate0').fadeOut('100',function(){
-                    $(this).text(title).show().addClass('rotateIn').addClass('animate0');
+                $(this.title_selector).removeClass('rotateIn').removeClass('animate0').addClass('rotateOut').addClass('animate0').fadeOut('100',function(){
+                    $(this).text(title).show().removeClass('rotateOut').removeClass('animate0').addClass('rotateIn').addClass('animate0');
 
                 });
             },
@@ -47,9 +47,12 @@ define([
              * @param {function} callback function which will be called after template will be shown
              * @inner
              * @memberof DefaultBundle.ExtendView
-             * @returns {object} itself instance of ExtendView
+             * @returns {object|boolean} itself instance of ExtendView
              */
             showContent:function(template,callback) {
+                if(typeof template !== 'string') {
+                    return false;
+                }
                 var $this = this;
                 this.$el.removeClass('lightSpeedIn').removeClass('lightSpeedOut').removeClass('animate0').addClass('lightSpeedOut').addClass('animate0').fadeOut('100',function(){
                     $this.$el.html(template);
@@ -79,6 +82,7 @@ define([
              * @method remove
              * @desc remove all events and stop listens
              * @autho Siarhei Sharykhin
+             * @inner
              * @returns {boolean}
              * @memberof DefaultBundle.ExtendView
              */
@@ -89,6 +93,9 @@ define([
                 return true;
 
             }
+
+
+
          });
 
         return ExtendView;

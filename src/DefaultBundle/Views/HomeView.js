@@ -6,7 +6,8 @@ define([
     'underscore',
     'backbone',
     './ExtendView',
-    'text!../Templates/HomeTemplate.html'
+    'text!../Templates/HomeTemplate.html',
+
 
 ],
     function ($, _, Backbone,ExtendView, HomeTemplate) {

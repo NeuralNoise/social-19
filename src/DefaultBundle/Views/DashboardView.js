@@ -21,6 +21,9 @@ define([
             el:$('.container'),
             title:'Dashboard',
             template: _.template(DashboardTemplate),
+            events:{
+              'click .logOut':'logOut'
+            },
             initialize:function()
             {
 
@@ -31,9 +34,27 @@ define([
 
             render:function(){
                 this.showContent(this.template(),function(){$.Metro.initDropdowns();});
-                this.changeTitle(this.title);
-
                 return this;
+            },
+            /**
+             * @method logOut
+             * @desc log out user from dashboard
+             * @author Siarhei Sharykhin
+             * @inner
+             * @memberof DefaultBundle.DashboardView
+             */
+            logOut:function(){
+                $.ajax({
+                   type:'POST',
+                   'url':'/server/users/logout',
+                   dataType:'json',
+                   success:function(data) {
+                       if(data.status === 200) {
+                           var router = new Backbone.Router();
+                           router.navigate('#/',{trigger:true});
+                       }
+                   }
+                });
             }
 
         });

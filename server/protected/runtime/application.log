@@ -43,3 +43,41 @@ in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
 2014/01/29 08:45:26 [warning] [application] Failed to set unsafe attribute "validate" of "Users".
 in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (49)
 in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/02/04 08:16:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "authenticate".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php:483
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(270): CController->missingAction('authenticate')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(282): CController->run('authenticate')
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('users/authentic...')
+#3 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/server/users/authenticate
+HTTP_REFERER=http://social.loc/public/
+---
+2014/02/05 07:23:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "logout".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php:483
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(270): CController->missingAction('logout')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(282): CController->run('logout')
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('users/logout')
+#3 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/server/users/logout
+HTTP_REFERER=http://social.loc/public/
+---
+2014/02/05 07:47:27 [error] [php] Trying to get property of non-object (D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php:109)
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilterChain.php(133): UsersController->runAction()
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#3 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CInlineFilter.php(58): UsersController->filterAccessControl()
+#4 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#5 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(291): CFilterChain->run()
+#6 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(265): UsersController->runActionWithFilters()
+#7 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(282): UsersController->run()
+#8 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CWebApplication->run()
+REQUEST_URI=/server/users/login
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (109)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)

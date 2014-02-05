@@ -12,7 +12,7 @@ define([
 
         var BaseModel = Backbone.Model.extend({
                 url:'/server/',
-
+                //TODO:any validations rule have to leave to CommonBundle
                 validation:function(formSelector){
                     var $this = this;
                     var errors = {
