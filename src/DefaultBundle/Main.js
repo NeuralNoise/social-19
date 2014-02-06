@@ -43,20 +43,20 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
 
         Router.route('sign_in','sing_in',function(){
             console.log('sing_in');
-            var singView = new SignView({type:'sign_in'});
+            var singView = new SignView({type:'sign_in',user:user});
             this.swap(singView);
         });
 
         Router.route('sign_up','sing_up',function(){
             console.log('sing_up');
-            var singView = new SignView({type:'sign_up'});
+            var singView = new SignView({type:'sign_up',user:user});
             this.swap(singView);
 
         });
 
         Router.route('dashboard','dashboard',function(){
             console.log('dashboard');
-            var dashboardView = new DashboardView();
+            var dashboardView = new DashboardView({user:user,router:Router});
             this.swap(dashboardView);
 
         });

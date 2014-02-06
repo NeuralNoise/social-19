@@ -24,9 +24,13 @@ define([
             events:{
               'click .logOut':'logOut'
             },
-            initialize:function()
+            initialize:function(options)
             {
-
+                if(options.user.uid === null) {
+                    options.router.navigate('/',{trigger:true});
+                    return false;
+                }
+                this.user = options.user;
                 this.render();
 
 

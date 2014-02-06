@@ -92,6 +92,20 @@ define([
                 console.log('extend remove init');
                 return true;
 
+            },
+
+            /**
+             * @method checkUserExists
+             * @desc if user already authenticated, redirect him to dashboard page
+             * @param {object} user current user
+             * @memberof DefaultBundle.ExtendView
+             */
+            checkUserExists:function(user)
+            {
+                if(user.uid !== null) {
+                    var router = new Backbone.Router();
+                    router.navigate('/dashboard',{trigger:true});
+                }
             }
 
 

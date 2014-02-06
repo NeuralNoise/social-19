@@ -5,11 +5,11 @@ define([
     './ExtendView',
     '../Models/UserModel',
     'text!../Templates/SignFormTemplate.html',
-    '../../CommonBundle/User/User',
+    '../../CommonBundle/Validations/Validations',
     'public/assets/js/metro-input-control'
 
 ],
-    function ($, _, Backbone,ExtendView,UserModel, SignFormTemplate,User) {
+    function ($, _, Backbone,ExtendView,UserModel, SignFormTemplate,Validations) {
 
         'use strict';
         /**
@@ -43,11 +43,13 @@ define([
 
                 if(options !== undefined) {
                     this.type = options.type;
+                    this.user = options.user;
+                    this.router = options.router;
                     if(this.type === 'sign_up') {
                         this.title = 'Sign Up';
                     }
                 }
-
+                this.checkUserExists(this.user);
                 this.render();
 
             },
@@ -79,15 +81,14 @@ define([
                 var $target = $(event.target);
                 //Get data from from in JSON format
                 var data = this.formToJSON('#'+$target.attr('id'));
+                //Create identifier of errors
+                var errorsValidation = Validations.formSubmit('#'+$target.attr('id'));
                 //Registration process
                 if(this.type==='sign_up') {
-
                     //remove confirm_password property from data
                     delete data.confirm_password;
                     //Initialize new model
                     var userModel = new UserModel();
-                    //Create identifier of errors
-                    var errorsValidation = userModel.validation('#'+$target.attr('id'));
                     //If all data is valid
                     if(!errorsValidation.exists){
                        //set url for server
@@ -129,13 +130,34 @@ define([
                 } // end sign_up
                 //Authentication process
                 if(this.type==='sign_in') {
-                    var user = new User();
-                    if(user.login(data)){
-                        var router = new  Backbone.Router();
-                        router.navigate('/dashboard',{trigger:true});
+                    //Check error during
+                    if(errorsValidation.exists) {
+                        //If errors were occured, appropriate message will be shown
+                        _.each(errorsValidation.messages,function(msg,index){
+                            $.Notify({
+                                content: msg,
+                                caption:"Info",
+                                style:{background:'#971515',color:'#FFFFFF'}
+                            });
+                        });
+                        return false;
                     }
 
-                }
+                    //Try to login, and if all ok, redirect to dashboard
+                    if(this.user.login(data)){
+                        var router = new  Backbone.Router();
+                        router.navigate('/dashboard',{trigger:true});
+                    } else {
+                        //Show notifications
+                        $.Notify({
+                            content: 'Current email or password don\'t exist',
+                            caption:"Authenticate",
+                            style:{background:'#3B4097',color:'#FFFFFF'}
+                        });
+                        return false;
+                    }
+
+                } // end sign_in
 
             } //end submit
 
