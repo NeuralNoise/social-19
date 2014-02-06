@@ -1,4 +1,6 @@
-define(['src/DefaultBundle/Views/Main','public/assets/js/metro-dropdown'],function(MainView){
+define([
+    'src/DefaultBundle/Views/Main'
+    ],function(MainView){
     describe('Testing Default View',function(){
 
         var mainView;

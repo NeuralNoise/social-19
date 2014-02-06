@@ -68,6 +68,9 @@ module.exports = function(grunt) {
                             },
                             'public/assets/js/metro-notify':{
                                 deps:['public/assets/js/jquery.ui.widget']
+                            },
+                            'public/assets/js/metro-dropdown':{
+                                deps:['public/assets/js/jquery.ui.widget','public/assets/js/metro-core']
                             }
 
                         }

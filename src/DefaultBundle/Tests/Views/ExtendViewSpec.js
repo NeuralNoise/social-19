@@ -1,4 +1,4 @@
-define(['jquery','src/DefaultBundle/Views/ExtendView','public/assets/js/jquery.ui.widget','public/assets/js/metro-core'],function($,ExtendView){
+define(['jquery','src/DefaultBundle/Views/ExtendView'],function($,ExtendView){
     describe('Testing ExtendView View',function(){
         var extendView;
 
@@ -8,6 +8,8 @@ define(['jquery','src/DefaultBundle/Views/ExtendView','public/assets/js/jquery.u
 
         it('should be defined',function(){
             expect(extendView).toBeDefined();
+            expect(extendView.checkUserExists({uid:null})).toBeUndefined();
+
         });
 
         it('should contain "title" property',function(){
@@ -27,6 +29,13 @@ define(['jquery','src/DefaultBundle/Views/ExtendView','public/assets/js/jquery.u
         it('should contain "changeTitle" and title must be string',function(){
             expect(extendView.changeTitle('title')).toBeUndefined();
             expect(extendView.changeTitle({a:5})).toBeFalsy();
+        });
+
+        it('should contain "formToJSON" method',function(){
+           var form = '<form id="forma"><input type="text" name="email" value="admin@mail.com" /></form>'
+            $('body').append(form);
+            expect(typeof extendView.formToJSON('#forma')).toBe('object');
+
         });
 
         it('should contain "remove" method',function(){
