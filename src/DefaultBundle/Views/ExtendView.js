@@ -73,7 +73,14 @@ define([
             formToJSON:function(formSelector,excludeAttributes){
                 var data = {};
                 $(formSelector + ' input, '+formSelector+' textarea').not('input[type=submit]').each(function(){
-                   data[$(this).attr('name')] = $(this).val();
+                    if($(this).attr('type') !== 'checkbox' && $(this).attr('type') !== 'radio') {
+                        data[$(this).attr('name')] = $(this).val();
+                    } else {
+                        if($(this).is(':checked')) {
+                            data[$(this).attr('name')] = $(this).val();
+                        }
+                    }
+
                 });
                 return data;
             },

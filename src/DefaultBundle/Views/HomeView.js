@@ -16,7 +16,7 @@ define([
 
         var HomeView = ExtendView.extend({
 
-            title:'Welcome to Social Network. Join to us!!!',
+            title:'Welcome to Social Network. Join us!!!',
             template: _.template(HomeTemplate),
             initialize:function()
             {

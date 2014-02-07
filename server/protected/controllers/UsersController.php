@@ -33,6 +33,13 @@ class UsersController extends Controller
 
     public function actionAuthenticate()
     {
+        $cookies = Yii::app()->request->cookies;
+        if(isset($cookies['rememberme'])) {
+            $model = Users::model()->find($cookies['rememberme']->value);
+            Yii::app()->session->add('uid', $model->id);
+            $this->sendJSON(array('uid'=>Yii::app()->session['uid']));
+        }
+
         if(isset($_SESSION['uid'])) {
             $this->sendJSON(array('uid'=>$_SESSION['uid']));
         } else {
@@ -97,6 +104,7 @@ class UsersController extends Controller
     public function actionLogout()
     {
         Yii::app()->getSession()->destroy();
+        unset(Yii::app()->request->cookies['rememberme']);
         $this->sendJSON(array('status'=>200));
     }
 
@@ -106,7 +114,11 @@ class UsersController extends Controller
             $data = $_POST['data'];
             $model = Users::model()->findByAttributes(array('email'=>$data['email'],'password'=>$data['password']));
             if($model) {
-
+                if(isset($data['rememberme'])){
+                    $cookie = new CHttpCookie('rememberme', $model->id);
+                    $cookie->expire = time()+60*60*24*180;
+                    Yii::app()->request->cookies['rememberme'] = $cookie;
+                }
                 Yii::app()->session->add('uid', $model->id);
                 $this->sendJSON(array('status'=>200));
             }

@@ -30,6 +30,10 @@ define([
              * @memberof DefaultBundle.SignView
              */
             type:null,
+
+            user:{
+              uid:null
+            },
             /**
              * @property {function} template - default propery of Backbone.View. It contains template of sign in/up forms
              * @memberof DefaultBundle.SignView
@@ -43,8 +47,12 @@ define([
 
                 if(options !== undefined) {
                     this.type = options.type;
-                    this.user = options.user;
-                    this.router = options.router;
+                    if(options.user !== undefined) {
+                        this.user = options.user;
+                    }
+                    if(options.router !== undefined) {
+                        this.router = options.router;
+                    }
                     if(this.type === 'sign_up') {
                         this.title = 'Sign Up';
                     }
