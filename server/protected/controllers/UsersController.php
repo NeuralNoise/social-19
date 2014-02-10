@@ -31,6 +31,12 @@ class UsersController extends Controller
 		));
 	}
 
+    public function actionGetuser($id)
+    {
+        $model = Users::model()->find($id);
+        $this->sendJSON($model->attributes);
+    }
+
     public function actionAuthenticate()
     {
         $cookies = Yii::app()->request->cookies;

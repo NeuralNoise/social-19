@@ -81,3 +81,14 @@ Stack trace:
 REQUEST_URI=/server/users/login
 in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (109)
 in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/02/10 06:19:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "id".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php:483
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(270): CController->missingAction('id')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(282): CController->run('id')
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('users/id')
+#3 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/server/users/id/98
+HTTP_REFERER=http://social.loc/public/
+---

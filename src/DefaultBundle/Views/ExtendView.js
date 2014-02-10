@@ -61,6 +61,22 @@ define([
                 return this;
             },
 
+            changeCustomContent:function(template,selector,callback) {
+                if(typeof template !== 'string') {
+                    return false;
+                }
+                if(selector === undefined) {
+                    return false;
+                }
+                var $this = this;
+                this.$(selector).removeClass('lightSpeedIn').removeClass('lightSpeedOut').removeClass('animate0').addClass('lightSpeedOut').addClass('animate0').fadeOut('100',function(){
+                    $this.$(selector).html(template);
+                    $(this).removeClass('lightSpeedOut').addClass('lightSpeedIn').addClass('animate0').show(callback);
+                });
+                return this;
+
+            },
+
             /**
              * @method formToJSON
              * @desc transform form data to json format

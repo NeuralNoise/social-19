@@ -3,10 +3,10 @@
         <nav class="navigation-bar fixed-top dark">
             <nav class="navigation-bar-content">
                 <div class="element">
-                    <a class="dropdown-toggle" href="#">METRO UI CSS</a>
+                    <a class="dropdown-toggle" href="#">I WANT</a>
                     <ul class="dropdown-menu" data-role="dropdown">
-                        <li><a href="#">Main</a></li>
-                        <li><a href="#">File Open</a></li>
+                        <li><a class="find" alt="people"  href="#/find/people">Find people</a></li>
+                        <li><a href="#">Find news</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Print...</a></li>
                         <li class="divider"></li>
@@ -44,13 +44,15 @@
                 <span class="element-divider place-right"></span>
                 <button class="element image-button image-left place-right">
                     <span class="icon-home on-left" style="margin-top: 8px;"></span>
-                    Sergey Pimenov
+
+                    <%= user.firstname %> <%= user.lastname %>
+
 
                 </button>
             </nav>
         </nav>
     </div>
-    <div class="inner-content">
+    <div class="inner-content dashboard-content">
 
     </div>
 

@@ -3,11 +3,12 @@ define([
     'underscore',
     'backbone',
     './ExtendView',
+    '../Models/UserModel',
     'text!../Templates/DashboardTemplate.html',
     'public/assets/js/metro-dropdown'
 
 ],
-    function ($, _, Backbone,ExtendView, DashboardTemplate) {
+    function ($, _, Backbone,ExtendView,UserModel, DashboardTemplate) {
 
         'use strict';
         /**
@@ -22,7 +23,9 @@ define([
             title:'Dashboard',
             template: _.template(DashboardTemplate),
             events:{
-              'click .logOut':'logOut'
+              'click .logOut':'logOut',
+              'click .find':'find'
+
             },
             initialize:function(options)
             {
@@ -31,13 +34,17 @@ define([
                     return false;
                 }
                 this.user = options.user;
-                this.render();
+                this.userModel = new UserModel();
+                this.userModel.url =  this.userModel.url + '/getuser/id/'+this.user.uid;
+
+                var $this = this;
+                this.userModel.fetch({success:function(){$this.render();}});
 
 
             },
 
             render:function(){
-                this.showContent(this.template(),function(){$.Metro.initDropdowns();});
+                this.showContent(this.template({user:this.userModel.toJSON()}),function(){$.Metro.initDropdowns();});
                 return this;
             },
             /**
@@ -59,7 +66,14 @@ define([
                        }
                    }
                 });
+            },
+
+            find:function(event) {
+                event.preventDefault();
+                this.changeCustomContent("<h1>Find me</h1>",".inner-content");
+                console.log($(event.target));
             }
+
 
         });
 
