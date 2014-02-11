@@ -24,15 +24,6 @@ define([
                 },
 
 
-                validate:function(attrs,options){
-
-                    if($.trim(attrs.email) === '' ) {
-//                       console.log('here');
-                       return 'here';
-                    }
-
-                },
-
                 url:'/server/users'
 
 

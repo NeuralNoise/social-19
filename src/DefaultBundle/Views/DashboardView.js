@@ -5,10 +5,11 @@ define([
     './ExtendView',
     '../Models/UserModel',
     'text!../Templates/DashboardTemplate.html',
+    'text!../Templates/FindTemplate.html',
     'public/assets/js/metro-dropdown'
 
 ],
-    function ($, _, Backbone,ExtendView,UserModel, DashboardTemplate) {
+    function ($, _, Backbone,ExtendView,UserModel, DashboardTemplate,FindTemplate) {
 
         'use strict';
         /**
@@ -70,8 +71,10 @@ define([
 
             find:function(event) {
                 event.preventDefault();
-                this.changeCustomContent("<h1>Find me</h1>",".inner-content");
-                console.log($(event.target));
+                var findTemplate = _.template(FindTemplate);
+                var whatFind = $(event.target).attr('alt');
+                this.changeCustomContent(findTemplate({whatFind:whatFind}),".inner-content");
+                console.log(this.userModel);
             }
 
 
