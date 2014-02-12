@@ -83,6 +83,16 @@ class UsersController extends Controller
 
 	}
 
+    public function actionGetall()
+    {
+        $usersCollection = Users::model()->findAll();
+        $usersAttributes = array();
+        foreach($usersCollection as $key=>$object){
+            $usersAttributes[] = $object->attributes;
+        }
+        $this->sendJSON($usersAttributes);
+    }
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.

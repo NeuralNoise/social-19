@@ -6,10 +6,12 @@ define([
     '../Models/UserModel',
     'text!../Templates/DashboardTemplate.html',
     'text!../Templates/FindTemplate.html',
+    '../Collections/FindCollection',
+    '../Views/ItemView',
     'public/assets/js/metro-dropdown'
 
 ],
-    function ($, _, Backbone,ExtendView,UserModel, DashboardTemplate,FindTemplate) {
+    function ($, _, Backbone,ExtendView,UserModel, DashboardTemplate,FindTemplate,FindCollection,ItemView) {
 
         'use strict';
         /**
@@ -73,8 +75,20 @@ define([
                 event.preventDefault();
                 var findTemplate = _.template(FindTemplate);
                 var whatFind = $(event.target).attr('alt');
-                this.changeCustomContent(findTemplate({whatFind:whatFind}),".inner-content");
-                console.log(this.userModel);
+                this.changeCustomContent(findTemplate({whatFind:whatFind}),".inner-content",function(){
+
+                    var collection = new FindCollection({type:'users'});
+                    collection.fetch({success:function(data){
+                        console.log(data);
+                        _.each(data.models,function(model){
+                            var itemView = new ItemView(model);
+                            itemView.show('.listview');
+
+                        });
+                    }});
+                });
+
+                //console.log(this.userModel);
             }
 
 

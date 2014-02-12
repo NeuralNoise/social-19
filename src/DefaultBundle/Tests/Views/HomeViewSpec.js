@@ -13,7 +13,7 @@ define(['jquery','src/DefaultBundle/Views/HomeView','text!/src/DefaultBundle/Tem
                 spyOn(spy,'render').andCallThrough();
                 spy.initialize();
                 expect(spy.render).toHaveBeenCalled();
-                
+
         });
 
 

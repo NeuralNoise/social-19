@@ -6,4 +6,4 @@ img {margin: 10px;}
 .input-error    {border: 1px solid #FF0000 !important;}
 .input-error-verify  {border: 1px solid #FF0000 !important;}
 .input-error-email   {border: 1px solid #FF0000 !important;}
-.dashboard-content  {position: absolute;margin-top: 50px;}
+.dashboard-content  {position: absolute;margin-top: 50px; width: 100%;}

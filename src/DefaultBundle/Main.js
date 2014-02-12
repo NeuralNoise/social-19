@@ -25,13 +25,14 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
         var Router = options.Router;
 
         //Initialize base Front view
-        console.log('current url path is : '+path);
+        //console.log('current url path is : '+path);
         //Create Wrapper of front
         var mainView = new MainView();
         //Inisialize drop down menu
         $.Metro.initDropdowns();
         //initialize user instance
         var user = new User();
+
         //If user already authenticated, redirect it to dashboard panel
 //        if(user.uid !== null) {
 //            Router.navigate('#/dashboard',{triger:true});
