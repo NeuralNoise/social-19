@@ -128,3 +128,50 @@ Stack trace:
 REQUEST_URI=/server/users/getuser/id/null
 in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (37)
 in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/02/13 07:13:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "news/getall".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('news/getall')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/server/news/getall
+HTTP_REFERER=http://social.loc/public/
+---
+2014/02/13 07:20:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "news/getall".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('news/getall')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/server/news/getall
+HTTP_REFERER=http://social.loc/public/
+---
+2014/02/13 07:57:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "search".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php:483
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(270): CController->missingAction('search')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(282): CController->run('search')
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('users/search/va...')
+#3 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/server/users/search/value/undefined
+HTTP_REFERER=http://social.loc/public/
+---
+2014/02/13 08:15:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "news/getall".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('news/getall')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/server/news/getall
+HTTP_REFERER=http://social.loc/public/
+---
+2014/02/13 08:29:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "news/getall".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('news/getall')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/server/news/getall
+HTTP_REFERER=http://social.loc/public/
+---

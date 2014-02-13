@@ -5,8 +5,9 @@ define(['backbone','text!../Templates/ItemTemplate.html'],function(Backbone,Item
         className:'list',
         template: _.template(ItemTemplate),
 
-        initialize:function(model) {
+        initialize:function(model,type) {
             this.model = model;
+            this.model.set('type',type);
             this.render();
         },
 
@@ -15,8 +16,9 @@ define(['backbone','text!../Templates/ItemTemplate.html'],function(Backbone,Item
             return this;
         },
 
-        show:function(selector) {
-            $(selector).prepend(this.el);
+        show:function(selector,options) {
+            $(selector).prepend(this.el).addClass('animate0 rollIn');
+
         }
 
     });

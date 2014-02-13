@@ -13,8 +13,12 @@ define([
 
                 initialize:function(options)  {
                     this.type = options.type;
-                    this.url += this.type+'/'+this.serverMethod;
-                    console.log(this.url);
+                    if(options.searchVal === undefined) {
+                        this.url += this.type+'/'+this.serverMethod;
+                    } else {
+                        this.url += this.type+'/search/value/'+options.searchVal;
+                    }
+
                 }
             });
 

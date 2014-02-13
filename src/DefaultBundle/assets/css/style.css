@@ -7,3 +7,6 @@ img {margin: 10px;}
 .input-error-verify  {border: 1px solid #FF0000 !important;}
 .input-error-email   {border: 1px solid #FF0000 !important;}
 .dashboard-content  {position: absolute;margin-top: 50px; width: 100%;}
+.list-content .data a   {margin: 4px;}
+.list-content .data a:last-child    {margin-left: 14px;}
+.listview > a {width: 100% !important;}

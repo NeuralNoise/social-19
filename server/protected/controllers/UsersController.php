@@ -93,7 +93,22 @@ class UsersController extends Controller
         $this->sendJSON($usersAttributes);
     }
 
-	/**
+    public function actionSearch($value)
+    {
+        $ctiteria = new CDbCriteria();
+        $ctiteria->addSearchCondition('firstname',$value);
+        $ctiteria->addSearchCondition('lastname',$value,true,'OR');
+        $usersCollection=Users::model()->findAll($ctiteria);
+
+        $usersAttributes = array();
+        foreach($usersCollection as $key=>$object){
+            $usersAttributes[] = $object->attributes;
+        }
+        $this->sendJSON($usersAttributes);
+    }
+
+
+    /**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
@@ -123,6 +138,7 @@ class UsersController extends Controller
         //unset(Yii::app()->request->cookies['rememberme']);
         $this->sendJSON(array('status'=>200));
     }
+
 
     public function actionLogin()
     {
