@@ -1,30 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "users".
+ * This is the model class for table "news".
  *
- * The followings are the available columns in table 'users':
- * @property integer $id
- * @property string $firstname
- * @property string $lastname
- * @property integer $age
- * @property string $city
- * @property string $email
- * @property string $login
- * @property string $password
+ * The followings are the available columns in table 'news':
+ * @property string $id
+ * @property string $title
+ * @property string $description
+ * @property string $content
  * @property string $created
- * @property string $last_login
- * @property string $sex
- * @property integer $role
+ * @property string $updated
+ * @property integer $visibility
  */
-class Users extends CActiveRecord
+class News extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'users';
+		return 'news';
 	}
 
 	/**
@@ -35,15 +30,12 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('last_login', 'required'),
-			array('age', 'numerical', 'integerOnly'=>true),
-			array('firstname, lastname, city, login, password', 'length', 'max'=>255),
-			array('email', 'length', 'max'=>50),
-			array('sex', 'length', 'max'=>6),
-			array('created', 'safe'),
+			array('visibility', 'numerical', 'integerOnly'=>true),
+			array('title, description, content', 'length', 'max'=>255),
+			array('created, updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, firstname, lastname, age, city, email, login, password, created, last_login, sex', 'safe', 'on'=>'search'),
+			array('id, title, description, content, created, updated, visibility', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,17 +57,12 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'firstname' => 'Firstname',
-			'lastname' => 'Lastname',
-			'age' => 'Age',
-			'city' => 'City',
-			'email' => 'Email',
-			'login' => 'Login',
-			'password' => 'Password',
+			'title' => 'Title',
+			'description' => 'Description',
+			'content' => 'Content',
 			'created' => 'Created',
-			'last_login' => 'Last Login',
-			'sex' => 'Sex',
-            'role' => 'Role',
+			'updated' => 'Updated',
+			'visibility' => 'Visibility',
 		);
 	}
 
@@ -97,18 +84,13 @@ class Users extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('firstname',$this->firstname,true);
-		$criteria->compare('lastname',$this->lastname,true);
-		$criteria->compare('age',$this->age);
-		$criteria->compare('city',$this->city,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('login',$this->login,true);
-		$criteria->compare('password',$this->password,true);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('content',$this->content,true);
 		$criteria->compare('created',$this->created,true);
-		$criteria->compare('last_login',$this->last_login,true);
-		$criteria->compare('sex',$this->sex,true);
-        $criteria->compare('role',$this->role,true);
+		$criteria->compare('updated',$this->updated,true);
+		$criteria->compare('visibility',$this->visibility);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -119,7 +101,7 @@ class Users extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Users the static model class
+	 * @return News the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -7,7 +7,7 @@ define([
 
         var User = function(){
             this.uid =  this.isAuthenticate();
-
+            this.role = this.getRole();
         };
         User.prototype.isAuthenticate = function() {
            var uid = null;
@@ -22,6 +22,22 @@ define([
                }
             });
            return uid;
+        };
+
+        User.prototype.getRole = function() {
+
+            var role=0;
+            $.ajax({
+                type:'POST',
+                url:'/server/users/getrole',
+                dataType:'json',
+                async:false,
+                success:function(data) {
+                    role = data.role;
+                }
+            });
+            return role;
+
         };
 
         User.prototype.login = function(data) {

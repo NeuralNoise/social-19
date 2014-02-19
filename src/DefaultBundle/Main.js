@@ -32,6 +32,7 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
         $.Metro.initDropdowns();
         //initialize user instance
         var user = new User();
+        console.log(user);
 
         //If user already authenticated, redirect it to dashboard panel
 //        if(user.uid !== null) {

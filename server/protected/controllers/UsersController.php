@@ -53,6 +53,17 @@ class UsersController extends Controller
         }
     }
 
+    public function actionGetrole()
+    {
+        $session = new CHttpSession();
+        $session->open();
+        if(isset($session['role'])) {
+           $this->sendJSON(array('role'=>$session['role']));
+        } else {
+            $this->sendJSON(array('role'=>0));
+        }
+    }
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -152,6 +163,7 @@ class UsersController extends Controller
                     Yii::app()->request->cookies['rememberme'] = $cookie;
                 }*/
                 Yii::app()->session->add('uid', $model->id);
+                Yii::app()->session->add('role', 1);
                 $this->sendJSON(array('status'=>200));
             }
 
