@@ -1,6 +1,6 @@
 Requirements:
 
-    node : http://nodejs.org\n
+    node : http://nodejs.org
     bower
 
 Installation:

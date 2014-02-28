@@ -10,7 +10,7 @@ define(['src/DefaultBundle/Views/DashboardView'],function(DashboardView){
             expect(dashboardView).toBeDefined();
             expect(dashboardView.render()).toBe(dashboardView);
             var spy = new DashboardView({user:{uid:1}});
-            
+
         });
     });
 });

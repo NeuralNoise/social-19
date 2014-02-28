@@ -61,14 +61,28 @@ define([
                 return this;
             },
 
+            /**
+             * @method changeCustomContent
+             * @desc change custom content of custom element
+             * @author Siarhei SHarykhin
+             * @param {string} template html template
+             * @param {string} selector selector which content will be changed
+             * @param {function} callback callback function,after new conten will be shown
+             * @returns {object} itself
+             * @memberof DefaultBundle.ExtendView
+             */
             changeCustomContent:function(template,selector,callback) {
+                //check type of template
                 if(typeof template !== 'string') {
                     return false;
                 }
+                //selector is required
                 if(selector === undefined) {
                     return false;
                 }
+                //create reference
                 var $this = this;
+                //Fade out selector, change template, and show it again.
                 this.$(selector).removeClass('lightSpeedIn').removeClass('lightSpeedOut').removeClass('animate0').addClass('lightSpeedOut').addClass('animate0').fadeOut('100',function(){
                     $this.$(selector).html(template);
                     $(this).removeClass('lightSpeedOut').addClass('lightSpeedIn').addClass('animate0').show(callback);

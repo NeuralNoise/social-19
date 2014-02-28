@@ -23,7 +23,7 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
         var path = options.path;
         //Create Router
         var Router = options.Router;
-
+        var application=null;
         //Initialize base Front view
         //console.log('current url path is : '+path);
         //Create Wrapper of front
@@ -35,13 +35,15 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
         console.log(user);
 
         //If user already authenticated, redirect it to dashboard panel
-//        if(user.uid !== null) {
-//            Router.navigate('#/dashboard',{triger:true});
-//        }
+        if(user.uid !== null) {
+            Router.navigate('#/dashboard',{triger:true});
+        }
 
 
         if(path === null) {
            var homeView = new HomeView();
+            application=true;
+
         }
 
         //Initialize route of this bundle
@@ -50,22 +52,29 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
             console.log('sing_in');
             var singView = new SignView({type:'sign_in',user:user});
             this.swap(singView);
+            application=true;
         });
 
         Router.route('sign_up','sing_up',function(){
             console.log('sing_up');
             var singView = new SignView({type:'sign_up',user:user});
             this.swap(singView);
-
+            application=true;
         });
 
         Router.route('dashboard','dashboard',function(){
             console.log('dashboard');
             var dashboardView = new DashboardView({user:user,router:Router});
             this.swap(dashboardView);
-
+            application=true;
         });
 
+
+        if(application === null) {
+           
+           Router.navigate('#/',{triger:false});
+
+        }
 
 
 
