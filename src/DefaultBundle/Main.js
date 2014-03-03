@@ -33,7 +33,7 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
         //initialize user instance
         var user = new User();
         console.log(user);
-
+        console.log(path);
         //If user already authenticated, redirect it to dashboard panel
         if(user.uid !== null) {
             Router.navigate('#/dashboard',{triger:true});
@@ -42,7 +42,7 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
 
         if(path === null) {
            var homeView = new HomeView();
-            application=true;
+           application=true;
 
         }
 
@@ -69,10 +69,21 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
             application=true;
         });
 
-
+        /*
+         * If user reloads page, he wants to see a previouse page.
+         * In this case the Route doesn't work correcly.
+         * So we need to invoke current route hard
+         */
         if(application === null) {
-           
-           Router.navigate('#/',{triger:false});
+
+           if(path === 'sign_up' || path === 'sign_in') {
+               var redirectView = new SignView({type:path,user:user});
+               Router.swap(redirectView);
+
+           } else {
+               Router.navigate('#/',{triger:true});
+           }
+
 
         }
 

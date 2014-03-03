@@ -80,10 +80,12 @@ define([
              * @param event
              */
             find:function(event) {
+                console.log(event);
                 event.preventDefault();
+                //Get a default template for any finders
                 var findTemplate = _.template(FindTemplate);
+                //Get a type of find
                 var whatFind = $(event.target).attr('alt');
-
 
                 this.changeCustomContent(findTemplate({whatFind:whatFind}),".inner-content",function(){
                     $('#search-panel').attr('name',whatFind);
@@ -98,7 +100,7 @@ define([
                     }});
                 });
 
-                //console.log(this.userModel);
+
             },
 
 
