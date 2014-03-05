@@ -45,6 +45,7 @@ define([
                 this.userModel.fetch({success:function(){$this.render();}});
 
 
+
             },
 
             render:function(){
@@ -80,7 +81,7 @@ define([
              * @param event
              */
             find:function(event) {
-                console.log(event);
+
                 event.preventDefault();
                 //Get a default template for any finders
                 var findTemplate = _.template(FindTemplate);
@@ -109,16 +110,36 @@ define([
                 var searchVal = $this.val();
                 var whatFind = $this.attr('name');
                 var collection = new FindCollection({type:whatFind,searchVal:searchVal});
+                var $that = this;
                 collection.fetch({success:function(data){
-                    $('.listview > a').addClass('animate0').addClass('rollOut');
-                    _.each(data.models,function(model){
-                        var itemView = new ItemView(model,whatFind);
-                        itemView.show('.listview');
+                    var hasChanged = 0;
+                    var count = 0;
+                    console.log(data);//1 model 104 Dimas
+                    console.log($that.previousDataSearch);
+                    if($that.previousDataSearch !== undefined) {
+                        _.each($that.previousDataSearch,function(prevModel){
+                            _.each(data.models,function(model){
+                                if(model.get('id') === prevModel.get('id')){
+                                    hasChanged+=1;
+                                }
+                            });
+                            count++;
+                        });
+                    }
+                    console.log(count);
+                 if((count !== hasChanged || $that.previousDataSearch===undefined) || hasChanged<data.models.length) {
+                        console.log('data is changed');
+                        $('.listview > a').addClass('animate0').addClass('rollOut');
+                        _.each(data.models,function(model){
+                            var itemView = new ItemView(model,whatFind);
+                            itemView.show('.listview');
 
-                    });
-                }});
-                console.log(searchVal);
-            }
+                        });
+                 }
+                    $that.previousDataSearch = data.models;//1 model - 104 Dimas
+                }});//end fetch
+
+            }//end search
 
 
         });

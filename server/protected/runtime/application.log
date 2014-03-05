@@ -324,3 +324,39 @@ Stack trace:
 REQUEST_URI=/server/users/getuser/id/98
 HTTP_REFERER=http://social.loc/public/
 ---
+2014/03/04 07:21:44 [error] [php] Trying to get property of non-object (D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php:37)
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilterChain.php(133): UsersController->runAction()
+#3 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#5 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CInlineFilter.php(58): UsersController->filterAccessControl()
+#6 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#7 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(291): CFilterChain->run()
+#8 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(265): UsersController->runActionWithFilters()
+#9 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(282): UsersController->run()
+#10 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CWebApplication->run()
+REQUEST_URI=/server/users/getuser/id/null
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (37)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
+2014/03/04 07:21:58 [error] [php] Trying to get property of non-object (D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php:37)
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilterChain.php(133): UsersController->runAction()
+#3 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#5 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CInlineFilter.php(58): UsersController->filterAccessControl()
+#6 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#7 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(291): CFilterChain->run()
+#8 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CController.php(265): UsersController->runActionWithFilters()
+#9 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(282): UsersController->run()
+#10 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CWebApplication->run()
+REQUEST_URI=/server/users/getuser/id/null
+in D:\EasyPHP\data\localweb\sicoal.loc\server\protected\controllers\UsersController.php (37)
+in D:\EasyPHP\data\localweb\sicoal.loc\server\index.php (13)
