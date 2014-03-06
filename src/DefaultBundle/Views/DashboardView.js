@@ -4,6 +4,7 @@ define([
     'backbone',
     './ExtendView',
     '../Models/UserModel',
+    '../../../app/config/parameters',
     'text!../Templates/DashboardTemplate.html',
     'text!../Templates/FindTemplate.html',
     '../Collections/FindCollection',
@@ -11,7 +12,7 @@ define([
     'public/assets/js/metro-dropdown'
 
 ],
-    function ($, _, Backbone,ExtendView,UserModel, DashboardTemplate,FindTemplate,FindCollection,ItemView) {
+    function ($, _, Backbone,ExtendView,UserModel,parameters, DashboardTemplate,FindTemplate,FindCollection,ItemView) {
 
         'use strict';
         /**
@@ -90,7 +91,7 @@ define([
 
                 this.changeCustomContent(findTemplate({whatFind:whatFind}),".inner-content",function(){
                     $('#search-panel').attr('name',whatFind);
-                    var collection = new FindCollection({type:whatFind});
+                    var collection = new FindCollection({type:whatFind,limit:parameters.uploadElements});
                     collection.fetch({success:function(data){
 
                         _.each(data.models,function(model){
@@ -106,6 +107,7 @@ define([
 
 
             search:function(event) {
+                console.log(parameters);
                 var $this = $(event.target);
                 var searchVal = $this.val();
                 var whatFind = $this.attr('name');
@@ -132,7 +134,7 @@ define([
                         $('.listview > a').addClass('animate0 rollOut');
                         setTimeout(function(){
                             $('.listview > a.rollOut').remove();
-                        },1000)
+                        },1000);
                         _.each(data.models,function(model){
                             var itemView = new ItemView(model,whatFind);
                             itemView.show('.listview');

@@ -94,9 +94,15 @@ class UsersController extends Controller
 
 	}
 
-    public function actionGetall()
+    public function actionGetall($limit=false)
     {
-        $usersCollection = Users::model()->findAll();
+        if($limit !== false && is_numeric(intval($limit))) {
+
+             $usersCollection = Users::model()->findAllBySql("SELECT * FROM users LIMIT 0,".$limit);
+        } else {
+             $usersCollection = Users::model()->findAll();
+        }
+
         $usersAttributes = array();
         foreach($usersCollection as $key=>$object){
             $usersAttributes[] = $object->attributes;

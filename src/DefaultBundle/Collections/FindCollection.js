@@ -19,6 +19,10 @@ define([
                         this.url += this.type+'/search/value/'+options.searchVal;
                     }
 
+                    if(options.limit !== undefined) {
+                        this.url +='/limit/'+options.limit;
+                    }
+
                 }
             });
 
