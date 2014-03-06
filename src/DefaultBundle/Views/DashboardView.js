@@ -129,7 +129,10 @@ define([
                     console.log(count);
                  if((count !== hasChanged || $that.previousDataSearch===undefined) || hasChanged<data.models.length) {
                         console.log('data is changed');
-                        $('.listview > a').addClass('animate0').addClass('rollOut');
+                        $('.listview > a').addClass('animate0 rollOut');
+                        setTimeout(function(){
+                            $('.listview > a.rollOut').remove();
+                        },1000)
                         _.each(data.models,function(model){
                             var itemView = new ItemView(model,whatFind);
                             itemView.show('.listview');
