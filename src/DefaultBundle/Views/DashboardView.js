@@ -31,6 +31,7 @@ define([
               'click .find':'find',
               'keyup #search-panel':'search'
 
+
             },
             initialize:function(options)
             {
@@ -74,6 +75,50 @@ define([
                 });
             },
 
+            dynamicUpload:function(){
+                var $this = this;
+                //Get current offset from top of the document
+                var offsetTop = $(document).scrollTop();
+                var offsetNumber = $('.listview > a').length;
+                //Get height of inner content
+                var innerContentHeight = parseInt($('.inner-content').height(),10);
+                //Get window height
+                var windowHeight = parseInt($(window).height(),10);
+                console.log(innerContentHeight);
+                if(windowHeight > innerContentHeight) {
+                    //call dynamic upload
+                    this.upload({whatFind:'users',offset:offsetNumber});
+                } else {
+
+                    $(document).scroll(function(event){
+
+                        var offsetTop = parseInt($(document).scrollTop(),offsetNumber);
+                        console.log((offsetTop+windowHeight));
+                        if((offsetTop+windowHeight) > innerContentHeight) {
+                            $this.upload({whatFind:'users',offset:offsetNumber});
+                            $(document).off('scroll');
+                        }
+                    });
+                }
+
+            },
+
+            upload:function(options){
+                var whatFind = options.whatFind;
+                var $this = this;
+                var collection = new FindCollection({type:whatFind,limit:parameters.uploadElements,offset:options.offset});
+                collection.fetch({success:function(data){
+                    console.log(data);
+                    _.each(data.models,function(model){
+                        var itemView = new ItemView(model,whatFind);
+                        itemView.show('.listview',{place:'append'});
+
+                    });
+                    $this.dynamicUpload();
+                }});
+                console.log(whatFind);
+            },
+
             /**
              * @method find
              * @desc it shows a list of needed items
@@ -88,6 +133,7 @@ define([
                 var findTemplate = _.template(FindTemplate);
                 //Get a type of find
                 var whatFind = $(event.target).attr('alt');
+                var $this = this;
 
                 this.changeCustomContent(findTemplate({whatFind:whatFind}),".inner-content",function(){
                     $('#search-panel').attr('name',whatFind);
@@ -99,12 +145,12 @@ define([
                             itemView.show('.listview');
 
                         });
+                        $this.dynamicUpload();
                     }});
                 });
 
 
             },
-
 
             search:function(event) {
                 console.log(parameters);

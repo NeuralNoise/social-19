@@ -17,7 +17,13 @@ define(['backbone','text!../Templates/ItemTemplate.html'],function(Backbone,Item
         },
 
         show:function(selector,options) {
-            $(selector).prepend(this.el).addClass('animate0 rollIn');
+            options = options || {};
+            if(options.place === undefined) {
+                $(selector).prepend(this.el).addClass('animate0 rollIn');
+            }
+            if(options.place === 'append') {
+                $(selector).append(this.el).addClass('animate0 rollIn');
+            }
 
         }
 

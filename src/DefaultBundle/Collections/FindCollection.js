@@ -23,6 +23,10 @@ define([
                         this.url +='/limit/'+options.limit;
                     }
 
+                    if(options.offset !== undefined) {
+                        this.url +='/offset/'+options.offset;
+                    }
+
                 }
             });
 

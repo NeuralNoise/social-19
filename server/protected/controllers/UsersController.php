@@ -94,11 +94,11 @@ class UsersController extends Controller
 
 	}
 
-    public function actionGetall($limit=false)
+    public function actionGetall($limit=false,$offset=0)
     {
         if($limit !== false && is_numeric(intval($limit))) {
 
-             $usersCollection = Users::model()->findAllBySql("SELECT * FROM users LIMIT 0,".$limit);
+             $usersCollection = Users::model()->findAllBySql("SELECT * FROM users LIMIT ".$offset.",".$limit);
         } else {
              $usersCollection = Users::model()->findAll();
         }
