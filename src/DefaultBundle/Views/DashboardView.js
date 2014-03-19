@@ -74,11 +74,19 @@ define([
                    }
                 });
             },
-
-            dynamicUpload:function(){
+            /**
+             * @method dynamicUpload
+             * @desc Auto uploading elements from the server
+             * @author Siarhei SHarykhin
+             * @param {string} whatFind what user want to find (for example 'news')
+             * @memberof  DefaultBundle
+             */
+            dynamicUpload:function(whatFind){
+                if(whatFind===undefined) {
+                    throw 'method\'s parameter is required';
+                }
                 var $this = this;
-                //Get current offset from top of the document
-                var offsetTop = $(document).scrollTop();
+                //Get current number of elements
                 var offsetNumber = $('.listview > a').length;
                 //Get height of inner content
                 var innerContentHeight = parseInt($('.inner-content').height(),10);
@@ -87,7 +95,7 @@ define([
                 console.log(innerContentHeight);
                 if(windowHeight > innerContentHeight) {
                     //call dynamic upload
-                    this.upload({whatFind:'users',offset:offsetNumber});
+                    this.upload({whatFind:whatFind,offset:offsetNumber});
                 } else {
 
                     $(document).scroll(function(event){
@@ -103,6 +111,13 @@ define([
 
             },
 
+            /**
+             * @method upload
+             * @desc Create request to the server and append in the end of list new items
+             * @author Siarhei Sharykhin
+             * @param {object} options
+             * @memberof  DefaultBundle
+             */
             upload:function(options){
                 var whatFind = options.whatFind;
                 var $this = this;
@@ -114,9 +129,12 @@ define([
                         itemView.show('.listview',{place:'append'});
 
                     });
-                    $this.dynamicUpload();
+                    if(data.models.length === parseInt(parameters.uploadElements,10)) {
+                        $this.dynamicUpload(whatFind);
+                    }
+
                 }});
-                console.log(whatFind);
+
             },
 
             /**
@@ -145,7 +163,10 @@ define([
                             itemView.show('.listview');
 
                         });
-                        $this.dynamicUpload();
+                        if(data.models.length === parseInt(parameters.uploadElements,10)) {
+                            $this.dynamicUpload(whatFind);
+                        }
+
                     }});
                 });
 

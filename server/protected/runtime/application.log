@@ -383,3 +383,21 @@ Stack trace:
 REQUEST_URI=/server/users/getall/limit/5
 HTTP_REFERER=http://social.loc/public/
 ---
+2014/03/19 07:18:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "undefined/getall/limit/5/offset/4".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('undefined/getal...')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/server/undefined/getall/limit/5/offset/4
+HTTP_REFERER=http://social.loc/public/
+---
+2014/03/19 07:19:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "undefined/getall/limit/5/offset/4".' in D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\web\CWebApplication.php(141): CWebApplication->runController('undefined/getal...')
+#1 D:\EasyPHP\data\localweb\sicoal.loc\server\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\EasyPHP\data\localweb\sicoal.loc\server\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/server/undefined/getall/limit/5/offset/4
+HTTP_REFERER=http://social.loc/public/
+---

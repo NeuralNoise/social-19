@@ -19,5 +19,9 @@ define(['src/DefaultBundle/Views/DashboardView'],function(DashboardView){
 
 
         });
+
+        it('should return exception if a method dynamicUpload doesn\'t have parameter',function(){
+            expect(dashboardView.dynamicUpload).toThrow();
+        });
     });
 });
