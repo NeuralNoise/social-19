@@ -84,21 +84,7 @@ module.exports = function(grunt) {
 
         },
         exec: {
-            /*check: {
-                command: './node_modules/requirejs/bin/r.js -o app/build/app.build.js',
-                command: 'cd dist',
-                command: 'rm -rf app/build',
-                command: 'rm -rf node_modules',
-                command: 'rm -rf .bowerrc',
-                command: 'rm -rf component.json',
-                command: 'rm -rf Gruntfile.js',
-                command: 'rm -rf package.json',
-                command: 'rm -rf README.md',
-                command: 'rm -rf package.json',
-                command: 'rm -rf .idea'
 
-                       //stdout: true
-            },*/
             build:{
                 command: 'app/build/build.sh'
             }
@@ -120,14 +106,43 @@ module.exports = function(grunt) {
 
             }
 
+        },
+        csslint: {
+            strict: {
+                options: {
+                    import: 2,
+                    "qualified-headings": true,
+                    "unique-headings": true,
+                    "known-properties": false,
+                    "important":false,
+                    floats:false,
+                    /*formatters: [
+                        {id: 'junit-xml', dest: 'report/csslint_junit.xml'},
+                        {id: 'csslint-xml', dest: 'report/csslint.xml'}
+                    ]*/
+                },
+                src: ['src/**/*.css']
+            }
+
+        },
+        shell: {
+            listFolders: {
+                options: {
+                    stdout: true
+                },
+                command: 'ls'
+            }
         }
+
 
 
     });
 
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-jsdoc');
