@@ -115,7 +115,7 @@ module.exports = function(grunt) {
                     "unique-headings": true,
                     "known-properties": false,
                     "important":false,
-                    floats:false,
+                    floats:false
                     /*formatters: [
                         {id: 'junit-xml', dest: 'report/csslint_junit.xml'},
                         {id: 'csslint-xml', dest: 'report/csslint.xml'}

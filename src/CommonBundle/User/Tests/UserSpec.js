@@ -1,4 +1,59 @@
 define(['src/CommonBundle/User/User','jquery'],function(User,$){
+
+    function sendRequest(callbacks, configuration) {
+        var myDaya = {};
+        $.ajax({
+            url: configuration.url,
+            dataType: "json",
+            data:configuration.data || {},
+            success: function(data) {
+                myDaya.status = data.status;
+                callbacks.checkForInformation(data);
+
+            },
+
+            error: function(data) {
+
+                callbacks.displayErrorMessage();
+
+            },
+            timeout: configuration.remainingCallTime
+        });
+
+    }
+
+    describe('Test ajax works',function(){
+       it('should make an Ajax request to the correct URL',function(){
+           expect($).toBeDefined();
+           expect(typeof $).toBe("function");
+           expect(typeof $.ajax).toBe("function");
+           var configuration = {url:'/server/sapi/insert',remainingCallTime:30000};
+           spyOn($,'ajax');
+           sendRequest(undefined,configuration);
+           expect($.ajax.mostRecentCall.args[0]['url']).toEqual(configuration.url);
+       });
+
+       it('should call success function',function(){
+
+           spyOn($,'ajax').andCallFake(function(e){
+               e.success();
+           });
+
+           var callbacks = {
+               checkForInformation: jasmine.createSpy(),
+               displayErrorMessage: jasmine.createSpy()
+           };
+
+           var configuration = {url:'/server/sapi/insert',remainingCallTime:30000};
+
+           sendRequest(callbacks, configuration);
+
+           expect(callbacks.checkForInformation).toHaveBeenCalled();  //Verifies this was called
+           expect(callbacks.displayErrorMessage).not.toHaveBeenCalled();
+       });
+
+    });
+
     describe('Test User common class',function(){
         var user;
 
@@ -19,14 +74,11 @@ define(['src/CommonBundle/User/User','jquery'],function(User,$){
           var result=false,
               uid=0;
 
-          spyOn($,'ajax');
-
           $.ajax({
-              type:'POST',
-              url:'/server/sapi/insert',
+              type:'GET',
+              url:'/server/users/getall',
               dataType:'json',
               async:false,
-              data:{model:'Users','data':'{"email":"ch@sd.com"}'},
               success:function(data){
                     if(data.status===200) {
                         result=true;
@@ -36,25 +88,32 @@ define(['src/CommonBundle/User/User','jquery'],function(User,$){
               }
           });
 
-          expect($).toBeDefined();
-          expect(typeof $).toBe("function");
-          expect(typeof $.ajax).toBe("function");
-          //expect(uid).toNotEqual(0);
+          sendRequest({url:'/server/users/getall',remainingCallTime:5000},{});
 
-          if(result) {
-              $.ajax({
-                  type:'POST',
-                  url:'/server/sapi/session/actions/set',
-                  dataType:'json',
-                  async:true,
-                  data:{'sess_name':'uid','sess_val':uid}
-              });
-          }
+          var flag;
+          flag = false;
+          spyOn($, "ajax").andCallFake(function(params) {
+              return setTimeout((function() {
+                  params.success({
+                      "message": "Hello, World!"
+                  });
+                  return flag = true;
+              }), 0);
+          });
+          waitsFor((function() {
+              return flag;
+          }), "Should call clickHandler", 1000);
+          runs(function() {
+              expect(MyObj.buttonEnabled).toBe(true);
+              return expect($("#message").html()).toBe("Hello, World!");
+          });
+          expect(MyObj.buttonEnabled).toBe(true);
 
-          var newUser = new User();
-          //expect(newUser.uid).toBe(uid);
+
 
       });
 
     });//end descibe
+
+
 });//end define
