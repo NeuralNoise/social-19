@@ -15,11 +15,12 @@ define([
         $(formSelector + ' input, '+formSelector+' textarea').not('input[type=submit]').each(function(){
             $(this).removeClass('input-error');
             $(this).removeClass('input-error-verify').removeClass('input-error-email');
-            if($.trim($(this).val()) === '') {
+
+            /*if($.trim($(this).val()) === '') {
                 errors.exists = true;
                 $(this).addClass('input-error');
                 errors.messages.reqiured = 'Please, fill the required fields';
-            }
+            }*/
             if($(this).attr('data-confirm')) {
 
                 var toConfirmVal = $(formSelector).find('input[name='+$(this).attr('data-confirm')+']');
@@ -39,6 +40,15 @@ define([
                         errors.messages.confirmation = 'Your email is not incorrect';
                     }
                 }
+
+                if(validationRule === 'required') {
+                    if($.trim($(this).val()) === '') {
+                        errors.exists = true;
+                        $(this).addClass('input-error');
+                        errors.messages.reqiured = 'Please, fill the required fields';
+                    }
+                }
+
             }
 
         });

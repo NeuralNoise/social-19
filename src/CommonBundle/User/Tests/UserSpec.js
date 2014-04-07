@@ -1,21 +1,15 @@
 define(['src/CommonBundle/User/User','jquery'],function(User,$){
 
     function sendRequest(callbacks, configuration) {
-        var myDaya = {};
         $.ajax({
             url: configuration.url,
             dataType: "json",
             data:configuration.data || {},
             success: function(data) {
-                myDaya.status = data.status;
                 callbacks.checkForInformation(data);
-
             },
-
             error: function(data) {
-
                 callbacks.displayErrorMessage();
-
             },
             timeout: configuration.remainingCallTime
         });
@@ -68,50 +62,10 @@ define(['src/CommonBundle/User/User','jquery'],function(User,$){
           expect(user.isAuthenticate).toHaveBeenCalled();
           expect(user.getRole()).toBe(0);
           expect(user.login()).toBeFalsy();
+          expect(user.login()).toBeDefined();
       });
 
-      it('should return role 1',function(){
-          var result=false,
-              uid=0;
 
-          $.ajax({
-              type:'GET',
-              url:'/server/users/getall',
-              dataType:'json',
-              async:false,
-              success:function(data){
-                    if(data.status===200) {
-                        result=true;
-                        uid=data.uid;
-                    }
-
-              }
-          });
-
-          sendRequest({url:'/server/users/getall',remainingCallTime:5000},{});
-
-          var flag;
-          flag = false;
-          spyOn($, "ajax").andCallFake(function(params) {
-              return setTimeout((function() {
-                  params.success({
-                      "message": "Hello, World!"
-                  });
-                  return flag = true;
-              }), 0);
-          });
-          waitsFor((function() {
-              return flag;
-          }), "Should call clickHandler", 1000);
-          runs(function() {
-              expect(MyObj.buttonEnabled).toBe(true);
-              return expect($("#message").html()).toBe("Hello, World!");
-          });
-          expect(MyObj.buttonEnabled).toBe(true);
-
-
-
-      });
 
     });//end descibe
 

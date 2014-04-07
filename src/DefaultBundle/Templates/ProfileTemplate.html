@@ -1,0 +1,59 @@
+<div id="userProfile" class="grid">
+    <div class="row">
+        <div class="span4">
+            <div class="image-container selected">
+                <img src="/public/uploads/profile/profile.jpg">
+            </div>
+            <button class="large info">Change avatar</button>
+        </div>
+
+        <div class="span8">
+            <p>This is my profile page</p>
+
+            <form class="span6" id="profileForm">
+                <fieldset>
+                    <legend>Profile</legend>
+                    <label>Email </label>
+                    <div class="input-control text" data-role="input-control">
+                        <input name="email" type="text" data-valid="email" placeholder="type text" value="<%= user.email %>">
+                        <button class="btn-clear" tabindex="-1" type="button"></button>
+                    </div>
+
+                    <label>Firstname </label>
+                    <div class="input-control text" data-role="input-control">
+                        <input name="firstname" type="text" data-valid="required" placeholder="type text" value="<%= user.firstname %>">
+                        <button class="btn-clear" tabindex="-1" type="button"></button>
+                    </div>
+
+                    <label>Lastname </label>
+                    <div class="input-control text" data-role="input-control">
+                        <input name="lastname" type="text" data-valid="required" placeholder="type text" value="<%= user.lastname %>">
+                        <button class="btn-clear" tabindex="-1" type="button"></button>
+                    </div>
+
+                    <label>Age </label>
+                    <div class="input-control text" data-role="input-control">
+                        <input name="age" type="number" placeholder="type text" value="<%= user.age %>">
+                        <button class="btn-clear" tabindex="-1" style="margin-right: 15px;" type="button"></button>
+                    </div>
+
+                    <label>City </label>
+                    <div class="input-control text" data-role="input-control">
+                        <input name="city" type="text" placeholder="type text" value="<%= user.city %>">
+                        <button class="btn-clear" tabindex="-1" type="button"></button>
+                    </div>
+                    <input type="hidden" name="id" value="<%= user.id %>" />
+                    <button type="submit" class="success"><i class="icon-floppy on-left fg-white"></i>Save</button>
+                    <button type="reset" class="button danger">Reset</button>
+
+                </fieldset>
+
+            </form>
+        </div>
+        <script>
+            $.Metro.initInputs();
+        </script>
+
+    </div>
+
+</div>
