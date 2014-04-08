@@ -77,11 +77,31 @@ class SapiController extends Controller
 
     }
 
-    public function upload()
+    public function actionUpload()
     {
+
+        $uid = $_POST['uid'];
         $file = $_FILES['file'];
-        move_uploaded_file($_FILES["file"]["tmp_name"], dirname(__FILE__).'/../../../public/uploads/profile/' . $_FILES["file"]["name"]);
-        echo 'OK';
+        $uploadDir = dirname(__FILE__).'/../../../public/uploads/profile';
+        if(!is_dir($uploadDir.'/'.$uid)) {
+            mkdir($uploadDir.'/'.$uid,0777);
+        } else {
+            $dir = glob($uploadDir.'/'.$uid.'/*');
+            foreach($dir as $file) {
+
+                if($file !== '..' && $file!== '.') {
+                    unlink($file);
+                }
+            }
+        }
+
+        $filename = $_FILES["file"]["name"];
+        move_uploaded_file($_FILES["file"]["tmp_name"], dirname(__FILE__).'/../../../public/uploads/profile/'.$uid.'/' . $_FILES["file"]["name"]);
+        $model = CActiveRecord::model('Users');
+        $user = $model->findByPk(intval($uid));
+        $user->avatar = $filename;
+        $user->save(false);
+        echo $filename;
     }
 
 

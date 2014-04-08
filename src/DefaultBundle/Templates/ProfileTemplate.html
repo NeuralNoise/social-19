@@ -2,7 +2,7 @@
     <div class="row">
         <div class="span4">
             <div class="image-container selected">
-                <img src="/public/uploads/profile/profile.jpg">
+                <img class="userAvatarImg" src="/public/uploads/profile/<% if(user.avatar) { %><%= user.id %>/<%= user.avatar %> <% } else { %>default-avatar.png<% } %>">
             </div>
             <button class="large info" id="uploadAvatar">Change avatar</button>
             <div id="InfoBox"></div>

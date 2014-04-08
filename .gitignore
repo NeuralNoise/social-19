@@ -2,6 +2,8 @@
 .idea/*
 dist/*
 app/doc/*
+public/uploads/profile/*
+!public/uploads/profile/default-avatar.png
 server/assets/*
 server/protected/runtime/*
 vendors

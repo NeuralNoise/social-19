@@ -32,7 +32,7 @@
             'public/assets/js/metro-notify':{
                 deps:['public/assets/js/jquery.ui.widget']
             },
-            'public/assets/js/ajaxUpload.js':{
+            'public/assets/js/ajaxUpload':{
                 deps:['jquery']
             }
         }

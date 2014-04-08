@@ -19,8 +19,7 @@ define([
         layout: _.template(DashboardTemplate),
         template: _.template(ProfileTemplate),
         events:{
-            'submit #profileForm' :'saveProfile',
-            'click #uploadAvatar' :'changeAvatar'
+            'submit #profileForm' :'saveProfile'
         },
 
         initialize:function(options) {
@@ -41,6 +40,7 @@ define([
             this.showContent(this.layout({user:this.userModel.toJSON()}),function(){
                 $.Metro.initDropdowns();
                 $('.inner-content').html($this.template({user:$this.userModel.toJSON()}));
+                $this.changeAvatar();
             });
 
             return this;
@@ -81,8 +81,50 @@ define([
 
         },
 
-        changeAvatar:function(event){
-            console.log('change avatar');
+        changeAvatar:function(){
+            var $this = this;
+            $(document).ready(function(){
+                var button = $("#uploadAvatar"), interval, file;
+                new AjaxUpload(button, {
+                    action: "/server/sapi/upload",
+                    data: {uid: $this.user.uid},
+                    name: "file",
+                    onSubmit: function(file, ext){
+                        if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
+                         // extension is not allowed
+                            $.Notify({
+                                content:'You should use jpg,png,jpeg or gif format of images',
+                                caption:"Info",
+                                style:{background:'#971515',color:'#FFFFFF','marginRight':'10px'}
+                            });
+                         // cancel upload
+                         return false;
+                         }
+                        button.text("Загрузка");
+                        this.disable();
+
+                        interval = setInterval(function(){
+                            var text = button.text();
+                            if(text.length < 11){
+                                button.text(text + ".");
+                            }else{
+                                button.text("Uploading...");
+                            }
+                        }, 300);
+                    },
+                    onComplete: function(file, response){
+                        button.text("Change avatar");
+                        $('.userAvatarImg').attr('src','/public/uploads/profile/98/'+file);
+                        $.Notify({
+                            content:'Yout avatar has been changed successfully',
+                            caption:"Info",
+                            style:{background:'#008523',color:'#FFFFFF','marginRight':'10px'}
+                        });
+                        window.clearInterval(interval);
+                        this.enable();
+                    }
+                });
+            });
 
         }
 

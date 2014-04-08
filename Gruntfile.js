@@ -75,7 +75,7 @@ module.exports = function(grunt) {
                             'public/assets/js/metro-input-control':{
                                 deps:['public/assets/js/jquery.ui.widget','public/assets/js/metro-core']
                             },
-                            'public/assets/js/ajaxUpload.js':{
+                            'public/assets/js/ajaxUpload':{
                                 deps:['jquery']
                             }
 
