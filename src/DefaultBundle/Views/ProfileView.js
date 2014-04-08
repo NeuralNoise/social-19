@@ -6,7 +6,8 @@ define([
         '../Models/UserModel',
         'text!../Templates/DashboardTemplate.html',
         'text!../Templates/ProfileTemplate.html',
-        '../../CommonBundle/Validations/Validations'
+        '../../CommonBundle/Validations/Validations',
+        'public/assets/js/ajaxUpload'
 ],function($, _, Backbone,ExtendView,UserModel,DashboardTemplate,ProfileTemplate,Validations){
 
     'use strict';
@@ -18,7 +19,8 @@ define([
         layout: _.template(DashboardTemplate),
         template: _.template(ProfileTemplate),
         events:{
-            'submit #profileForm' :'saveProfile'
+            'submit #profileForm' :'saveProfile',
+            'click #uploadAvatar' :'changeAvatar'
         },
 
         initialize:function(options) {
@@ -76,6 +78,11 @@ define([
                     });
                 });
             }
+
+        },
+
+        changeAvatar:function(event){
+            console.log('change avatar');
 
         }
 

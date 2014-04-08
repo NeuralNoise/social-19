@@ -34,6 +34,7 @@ class UsersController extends Controller
     public function actionGetuser($id)
     {
         $model = Users::model()->find($id);
+        $model->last_login=date("m-d-Y H:i",strtotime($model->last_login));
         $this->sendJSON($model->attributes);
     }
 
@@ -151,6 +152,12 @@ class UsersController extends Controller
 
     public function actionLogout()
     {
+
+        $model = Users::model()->findByPk(Yii::app()->session->get('uid'));
+        $timeZone = new DateTimeZone('Europe/Minsk');
+        $dateTime = new EDateTime('now',$timeZone);
+        $model->last_login=$dateTime->__toString();
+        $model->save();
         Yii::app()->getSession()->destroy();
         Yii::app()->request->cookies->clear();
         //unset(Yii::app()->request->cookies['rememberme']);

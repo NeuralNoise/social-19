@@ -68,5 +68,21 @@ class SapiController extends Controller
 
     }
 
+    public function actionGet($model,$id)
+    {
+        $model = CActiveRecord::model(ucfirst($model));
+        $data = $model->findByPk($id);
+        $data->last_login=date("m-d-Y H:i",strtotime($data->last_login));
+        return $this->sendJSON($data->attributes);
+
+    }
+
+    public function upload()
+    {
+        $file = $_FILES['file'];
+        move_uploaded_file($_FILES["file"]["tmp_name"], dirname(__FILE__).'/../../../public/uploads/profile/' . $_FILES["file"]["name"]);
+        echo 'OK';
+    }
+
 
 }

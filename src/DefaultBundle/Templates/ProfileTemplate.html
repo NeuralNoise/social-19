@@ -4,11 +4,12 @@
             <div class="image-container selected">
                 <img src="/public/uploads/profile/profile.jpg">
             </div>
-            <button class="large info">Change avatar</button>
+            <button class="large info" id="uploadAvatar">Change avatar</button>
+            <div id="InfoBox"></div>
         </div>
 
         <div class="span8">
-            <p>This is my profile page</p>
+            <p>This is my profile page. <i>Last login: <%= user.last_login %></i></p>
 
             <form class="span6" id="profileForm">
                 <fieldset>

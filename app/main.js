@@ -31,6 +31,9 @@
             },
             'public/assets/js/metro-notify':{
                 deps:['public/assets/js/jquery.ui.widget']
+            },
+            'public/assets/js/ajaxUpload.js':{
+                deps:['jquery']
             }
         }
     });
