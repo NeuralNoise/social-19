@@ -10,3 +10,13 @@ img {margin: 10px;}
 .list-content .data a   {margin: 4px;}
 .list-content .data a:last-child    {margin-left: 14px;}
 .listview > a {width: 100% !important;}
+.popUp  {margin: 100px auto;
+    z-index: 9999999999;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    padding: 20px;
+    border: 1px solid #666;
+    background-color: rgba(255,255,255,0.9)}
+
+.popUpspan6 {margin-left: -270px;margin-top: -200px;}

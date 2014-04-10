@@ -19,7 +19,8 @@ define([
         layout: _.template(DashboardTemplate),
         template: _.template(ProfileTemplate),
         events:{
-            'submit #profileForm' :'saveProfile'
+            'submit #profileForm' :'saveProfile',
+            'click .changePassword':'showChangePasswordPopUp'
         },
 
         initialize:function(options) {
@@ -44,6 +45,66 @@ define([
             });
 
             return this;
+        },
+
+        showChangePasswordPopUp:function() {
+            var $this = this;
+            require(['text!/src/DefaultBundle/Templates/ChangePasswordTemplate.html'],function(Template){
+                var popUp = _.template(Template);
+                $('body').append(popUp).fadeIn(function(){
+                    $('.savePassword').on('click',{context:$this},$this.changePassword);
+                    $('.cancelPopUp').on('click',$this.cancelPopUp);
+                });
+            });
+        },
+
+        changePassword:function(event){
+            var $this = event.data.context;
+            var $target = $(event.target);
+            //Get data from from in JSON format
+            var data = $this.formToJSON('#'+$target.parents('form')[0].getAttribute('id'));
+            console.log(data);
+            //Create identifier of errors
+            var errorsValidation = Validations.formSubmit('#'+$target.parents('form')[0].getAttribute('id'));
+            if(!errorsValidation.exists){
+                console.log('save password');
+                $this.userModel.url = '/server/users/changepassword';
+                $this.userModel.save({
+                    model:'users',
+                    Data:{id:$this.user.uid,password:data.new_pass,cur_pass:data.current_pass}
+                },{success:function(model,response){
+                    if(response.status===200) {
+                        $.Notify({
+                            content:'Yout password has been changed',
+                            caption:"Info",
+                            style:{background:'#008523',color:'#FFFFFF','marginRight':'10px'}
+                        });
+                        $this.cancelPopUp();
+                    }
+                    if(response.status===400) {
+                        $.Notify({
+                            content: response.msg,
+                            caption:"Info",
+                            style:{background:'#971515',color:'#FFFFFF'}
+
+                        });
+                    }
+                }});
+            } else {
+                //If errors were occured, appropriate message will be shown
+                _.each(errorsValidation.messages,function(msg,index){
+                    $.Notify({
+                        content: msg,
+                        caption:"Info",
+                        style:{background:'#971515',color:'#FFFFFF'},
+
+                    });
+                });
+            }
+        },
+
+        cancelPopUp:function() {
+          $('.popUp').fadeOut(function(){ $(this).remove();$('.cancelPopUp').off('click');});
         },
 
         saveProfile:function(event) {

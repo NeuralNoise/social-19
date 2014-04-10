@@ -8,7 +8,7 @@
             <div id="InfoBox"></div>
         </div>
 
-        <div class="span8">
+        <div class="span7">
             <p>This is my profile page. <i>Last login: <%= user.last_login %></i></p>
 
             <form class="span6" id="profileForm">
@@ -50,6 +50,13 @@
                 </fieldset>
 
             </form>
+        </div>
+        <div class="span2">
+            <button class="command-button primary changePassword">
+                <i class="icon-address-book on-left"></i>
+                <small>Change password</small>
+
+            </button>
         </div>
         <script>
             $.Metro.initInputs();
