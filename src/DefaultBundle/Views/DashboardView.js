@@ -29,7 +29,8 @@ define([
             events:{
               'click .logOut':'logOut',
               'click .find':'find',
-              'keyup #search-panel':'search'
+              'keyup #search-panel':'search',
+              'click .go_to_profile':'profilePage'
 
 
             },
@@ -53,6 +54,14 @@ define([
             render:function(){
                 this.showContent(this.template({user:this.userModel.toJSON()}),function(){$.Metro.initDropdowns();});
                 return this;
+            },
+
+            profilePage:function(){
+                console.log('here');
+                if($('#profileForm').length ===0) {
+                    var router = new Backbone.Router();
+                    router.navigate('#/profile',{trigger:true});
+                }
             },
             /**
              * @method logOut

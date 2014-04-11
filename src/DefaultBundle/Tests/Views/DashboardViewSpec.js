@@ -15,7 +15,7 @@ define(['src/DefaultBundle/Views/DashboardView'],function(DashboardView){
             spyOn(dashboardView,'logOut');
             dashboardView.logOut();
             expect(dashboardView.logOut).toHaveBeenCalled();
-            expect(dashboardView.events).toEqual({'click .logOut':'logOut','click .find':'find','keyup #search-panel':'search'});
+            expect(dashboardView.events).toEqual({'click .logOut':'logOut','click .find':'find','keyup #search-panel':'search','click .go_to_profile':'profilePage'});
 
 
         });

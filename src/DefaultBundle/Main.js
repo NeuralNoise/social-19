@@ -71,6 +71,7 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
 
         Router.route('profile','profile',function(){
             console.log('profile');
+            var dashboard = new DashboardView({user:user,router:Router});
             var profileView = new ProfileView({user:user,router:Router});
             this.swap(profileView);
             application=true;
