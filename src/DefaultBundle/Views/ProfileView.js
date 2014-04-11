@@ -7,8 +7,9 @@ define([
         'text!../Templates/DashboardTemplate.html',
         'text!../Templates/ProfileTemplate.html',
         '../../CommonBundle/Validations/Validations',
+        '../../CommonBundle/Components/Helper',
         'public/assets/js/ajaxUpload'
-],function($, _, Backbone,ExtendView,UserModel,DashboardTemplate,ProfileTemplate,Validations){
+],function($, _, Backbone,ExtendView,UserModel,DashboardTemplate,ProfileTemplate,Validations,Helper){
 
     'use strict';
 
@@ -31,7 +32,7 @@ define([
             this.user = options.user;
             this.userModel = new UserModel();
             this.userModel.url =  this.userModel.url + '/getuser/id/'+this.user.uid;
-
+            this.helper = Object.create(Helper);
             var $this = this;
             this.userModel.fetch({success:function(){$this.render();}});
         },
@@ -48,12 +49,13 @@ define([
         },
 
         showChangePasswordPopUp:function() {
+           this.helper.showBackShadow();
             var $this = this;
             require(['text!/src/DefaultBundle/Templates/ChangePasswordTemplate.html'],function(Template){
                 var popUp = _.template(Template);
                 $('body').append(popUp).fadeIn(function(){
                     $('.savePassword').on('click',{context:$this},$this.changePassword);
-                    $('.cancelPopUp').on('click',$this.cancelPopUp);
+                    $('.cancelPopUp').on('click',{context:$this},$this.cancelPopUp);
                 });
             });
         },
@@ -63,7 +65,6 @@ define([
             var $target = $(event.target);
             //Get data from from in JSON format
             var data = $this.formToJSON('#'+$target.parents('form')[0].getAttribute('id'));
-            console.log(data);
             //Create identifier of errors
             var errorsValidation = Validations.formSubmit('#'+$target.parents('form')[0].getAttribute('id'));
             if(!errorsValidation.exists){
@@ -74,12 +75,13 @@ define([
                     Data:{id:$this.user.uid,password:data.new_pass,cur_pass:data.current_pass}
                 },{success:function(model,response){
                     if(response.status===200) {
+                        $this.helper.closeBackShadow();
                         $.Notify({
                             content:'Yout password has been changed',
                             caption:"Info",
                             style:{background:'#008523',color:'#FFFFFF','marginRight':'10px'}
                         });
-                        $this.cancelPopUp();
+                        $this.cancelPopUp({data:$this});
                     }
                     if(response.status===400) {
                         $.Notify({
@@ -103,8 +105,17 @@ define([
             }
         },
 
-        cancelPopUp:function() {
+        cancelPopUp:function(event) {
+          var $this;
+          if(event.data !== undefined) {
+              $this = event.data.context;
+          }
+
           $('.popUp').fadeOut(function(){ $(this).remove();$('.cancelPopUp').off('click');});
+          if($this !== undefined) {
+              $this.helper.closeBackShadow();
+          }
+
         },
 
         saveProfile:function(event) {
