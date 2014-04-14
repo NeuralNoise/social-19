@@ -31,8 +31,6 @@ define([
               'click .find':'find',
               'keyup #search-panel':'search',
               'click .go_to_profile':'profilePage'
-
-
             },
             initialize:function(options)
             {
@@ -190,34 +188,46 @@ define([
                 var collection = new FindCollection({type:whatFind,searchVal:searchVal});
                 var $that = this;
                 collection.fetch({success:function(data){
-                    var hasChanged = 0;
-                    var count = 0;
                     console.log(data);//1 model 104 Dimas
-                    console.log($that.previousDataSearch);
-                    if($that.previousDataSearch !== undefined) {
-                        _.each($that.previousDataSearch,function(prevModel){
+                    //STEP 1. Remove unneccessary data
+                    var currentList = $('.listview > a');
+                    if(currentList !== undefined) {
+                        currentList.each(function(){
+                            var prevModel = $(this);
+                            var exist = false;
                             _.each(data.models,function(model){
-                                if(model.get('id') === prevModel.get('id')){
-                                    hasChanged+=1;
-                                }
-                            });
-                            count++;
+                                 if(parseInt(model.get('id'),10) === parseInt(prevModel.attr('id'),10)){
+                                    exist=true;
+                                 }
+                             });
+                            if(exist===false) {
+                                $(this).addClass('toWrap');
+                            }
                         });
                     }
-                    console.log(count);
-                 if((count !== hasChanged || $that.previousDataSearch===undefined) || hasChanged<data.models.length) {
-                        console.log('data is changed');
-                        $('.listview > a').addClass('animate0 rollOut');
-                        setTimeout(function(){
-                            $('.listview > a.rollOut').remove();
-                        },1000);
-                        _.each(data.models,function(model){
-                            var itemView = new ItemView(model,whatFind);
-                            itemView.show('.listview');
+                    $('.toWrap').wrapAll('<div class="wrapOut"/>');
+                    $('.wrapOut').addClass('animate0 rollOut');
+                    setTimeout(function(){
+                        $('.wrapOut').remove();
+                    },1000);
 
+                    //STEP 2. Add those elements, which does'n already exist in list
+                    currentList = $('.listview > a');
+                    _.each(data.models,function(model){
+                        var newElement = true;
+                        currentList.each(function(){
+                            if(parseInt($(this).attr('id'),10) === parseInt(model.get('id'),10)) {
+                                newElement=false;
+                            }
                         });
-                 }
-                    $that.previousDataSearch = data.models;//1 model - 104 Dimas
+                        if(newElement===true) {
+                            var itemView = new ItemView(model,whatFind);
+                            itemView.show('.listview',{search:true});
+                        }
+                    });
+
+
+
                 }});//end fetch
 
             }//end search
