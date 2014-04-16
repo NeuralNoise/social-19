@@ -3,7 +3,13 @@
  * @namespace DefaultBundle
  * @desc FrontEnd side of application
  */
-define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/DashboardView','../CommonBundle/User/User','./Views/ProfileView'], function (MainView,SignView,HomeView,DashboardView,User,ProfileView) {
+define([ "./Views/Main",
+         "./Views/SignView",
+         "./Views/HomeView",
+         './Views/DashboardView',
+         '../CommonBundle/User/User',
+         './Views/ProfileView',
+         './Views/FriendListView'], function (MainView,SignView,HomeView,DashboardView,User,ProfileView,FriendListView) {
 
     'use strict';
     /**
@@ -74,6 +80,14 @@ define([ "./Views/Main","./Views/SignView","./Views/HomeView",'./Views/Dashboard
             var dashboard = new DashboardView({user:user,router:Router});
             var profileView = new ProfileView({user:user,router:Router});
             this.swap(profileView);
+            application=true;
+        });
+
+        Router.route('friendlist','friendlist',function(){
+            console.log('friendlist');
+            var dashboard = new DashboardView({user:user,router:Router});
+            var friendlistView = new FriendListView({user:user,router:Router});
+            this.swap(friendlistView);
             application=true;
         });
 

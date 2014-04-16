@@ -16,6 +16,7 @@
  * @property string $last_login
  * @property string $sex
  * @property integer $role
+ * @property string $friends
  */
 class Users extends CActiveRecord
 {
@@ -76,6 +77,7 @@ class Users extends CActiveRecord
 			'last_login' => 'Last Login',
 			'sex' => 'Sex',
             'role' => 'Role',
+            'friends' => 'Friends',
 		);
 	}
 

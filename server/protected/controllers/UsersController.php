@@ -137,6 +137,22 @@ class UsersController extends Controller
         $this->sendJSON($usersAttributes);
     }
 
+    public function actionFriends($id)
+    {
+        $user = $this->loadModel($id);
+        $userFriends = $user->friends;// '2,13'
+        $usersArray = explode(",",$userFriends);
+        $users = ($userFriends) ? array() : null;
+        if(is_array($users)) {
+            foreach($usersArray as $currentUser):
+                $thisUser=Users::model()->findByPk($currentUser);
+                $users[]=$thisUser->attributes;
+            endforeach;
+        }
+        $this->sendJSON(array('users'=>$users));
+
+    }
+
     public function actionSearch($value)
     {
         $ctiteria = new CDbCriteria();
@@ -175,6 +191,8 @@ class UsersController extends Controller
 			'model'=>$model,
 		));
 	}
+
+
 
     public function actionLogout()
     {
