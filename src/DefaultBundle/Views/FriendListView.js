@@ -4,9 +4,10 @@ define(['jquery',
         './ExtendView',
         '../Collections/UsersCollection',
         '../Models/UserModel',
+        './UserView',
         'text!../Templates/DashboardTemplate.html',
         'text!../Templates/FriendListTemplate.html',
-        '../../CommonBundle/Components/Helper'],function($, _, Backbone,ExtendView,UserCollection,UserModel,DashboardTemplate,FriendListTemplate,Helper){
+        '../../CommonBundle/Components/Helper'],function($, _, Backbone,ExtendView,UserCollection,UserModel,UserView,DashboardTemplate,FriendListTemplate,Helper){
 
         var FriendList = ExtendView.extend({
            el:$('.container'),
@@ -27,7 +28,7 @@ define(['jquery',
                this.userModel = new UserModel();
                this.userModel.url =  this.userModel.url + '/getuser/id/'+this.user.uid;
                var $this = this;
-               this.userList.fetch({success:function(){
+               this.userList.fetch({success:function(data){
                    $this.render();
                }});
            },
@@ -37,8 +38,8 @@ define(['jquery',
                 this.showContent(this.layout({user:this.userModel.toJSON()}),function(){
                     $.Metro.initDropdowns();
                     $('.inner-content').html($this.template({user:$this.userModel.toJSON()}));
-                    _.each($this.userList.models[0].get('users'),function(friend){
-
+                    _.each($this.userList.models,function(friend){
+                       var user = new UserView(friend);
                     });
                     console.log($this.userList.models[0].get('users'));
 

@@ -18,5 +18,5 @@ img {margin: 10px;}
     padding: 20px;
     border: 1px solid #666;
     background-color: rgba(255,255,255,0.9)}
-
+table thead tr th {text-align: left;}
 .popUpspan6 {margin-left: -270px;margin-top: -200px;}

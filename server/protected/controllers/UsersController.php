@@ -137,6 +137,8 @@ class UsersController extends Controller
         $this->sendJSON($usersAttributes);
     }
 
+
+
     public function actionFriends($id)
     {
         $user = $this->loadModel($id);
@@ -149,7 +151,7 @@ class UsersController extends Controller
                 $users[]=$thisUser->attributes;
             endforeach;
         }
-        $this->sendJSON(array('users'=>$users));
+        $this->sendJSON($users);
 
     }
 
@@ -228,6 +230,22 @@ class UsersController extends Controller
         }
     }
 
+    public function actionDeletefriend($id)
+    {
+        $currentUser = $this->loadModel($_SESSION['uid']);
+        $friendsArray = explode(",",$currentUser->friends);
+        $newFriend = array();
+        foreach($friendsArray as $currentFriend):
+            if($currentFriend===$id){
+                continue;
+            }
+            $newFriend[]=$currentFriend;
+        endforeach;
+        $currentUser->friends=implode(",",$newFriend);
+        $currentUser->save();
+        $this->sendJSON(array('status'=>200));
+    }
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -235,6 +253,7 @@ class UsersController extends Controller
 	 */
 	public function actionDelete($id)
 	{
+
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
