@@ -44,7 +44,6 @@ define(['jquery',
                     console.log($this.userList.models[0].get('users'));
 
                 });
-
                 return this;
             }
         });
