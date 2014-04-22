@@ -27,7 +27,6 @@ define(['jquery','underscore','backbone','text!../Templates/UserTemplate.html'],
         },
 
         delete:function(userModel){
-            console.log(userModel);
             this.$el.fadeOut('fast',function(){
                 $(this).remove();
             });
