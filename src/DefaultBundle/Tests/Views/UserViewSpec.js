@@ -43,7 +43,7 @@ define(['src/DefaultBundle/Views/UserView',
             var userTemplate = $('tr').html(userView.template(userModel.toJSON()));
             expect(typeof userTemplate).toBe('object');
             var currentTemplate = $('tr').html(_.template(UserTemplate,userModel.toJSON()));
-            expect(userTemplate).toEqual(currentTemplate); 
+            expect(userTemplate).toEqual(currentTemplate);
         });
 
     });

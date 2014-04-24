@@ -31,6 +31,23 @@ class UsersController extends Controller
 		));
 	}
 
+    public function actionInvite($id)
+    {
+        $date = date("Y-m-d H:i:s");
+        $inviter=Yii::app()->session['uid'];
+        $userId = intval($id);
+        //check if inviter already intived this user
+        $check = Invitations::model()->findAllBySql("SELECT `id` FROM invitations WHERE `from`=".intval($inviter)." AND `to`=".$userId." LIMIT 0,1");
+        if(!$check) {
+            Invitations::model()->setIsNewRecord(true);
+            Invitations::model()->setAttributes(array('from'=>$inviter,'to'=>$userId,'date'=>$date));
+            Invitations::model()->insert();
+            $this->sendJSON(array('status'=>200,'msg'=>'You have sent invititaion to this person'));
+        } else {
+            $this->sendJSON(array('status'=>200,'msg'=>'Sorry! But you have already sent invitations to this person'));
+        }
+    }
+
     public function actionGetuser($id)
     {
         $model = Users::model()->find($id);

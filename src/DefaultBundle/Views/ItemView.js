@@ -1,9 +1,12 @@
-define(['backbone','text!../Templates/ItemTemplate.html'],function(Backbone,ItemTemplate){
+define(['backbone','text!../Templates/ItemTemplate.html','public/assets/js/metro-dialog','public/assets/js/metro-touch-handler'],function(Backbone,ItemTemplate){
 
     var ItemView = Backbone.View.extend({
         tagName:'a',
         className:'list',
         template: _.template(ItemTemplate),
+        events:{
+            'click .invitetofriend' :'inviteToFriends'
+        },
 
         initialize:function(model,type) {
             this.model = model;
@@ -32,6 +35,40 @@ define(['backbone','text!../Templates/ItemTemplate.html'],function(Backbone,Item
             }
 
 
+        },
+        inviteToFriends:function(event) {
+              event.preventDefault();
+              var userName = $.trim($(event.target).parent().find('.list-title').text());
+              var userId = parseInt($.trim($(event.target).parents('a').attr('id')),10);
+              var $this = this;
+                $.Dialog({
+                    shadow: true,
+                    overlay: false,
+                    draggable:true,
+                    icon: '<span class="icon-rocket"></span>',
+                    title: 'Invite ' + userName,
+                    width: 500,
+                    onShow: function(_dialog){
+
+                        var content = '<p>Are you sure to invite '+userName+' to friendlist?</p> <div style="margin-top: 35px;text-align: center;"><button class="success large confirmFriend">Yes</button> <button onclick="$.Dialog.close();" class="danger large">No</button></div> ';
+                        $.Dialog.content(content);
+                        $('.confirmFriend').on('click',{userId:userId},$this.confirmInvite);
+                    },
+                    padding: 10
+
+                });
+        },
+
+        confirmInvite:function(event) {
+            console.log(event.data.userId);
+            $.get('/server/users/invite/id/'+event.data.userId,function(response){
+                $.Notify({
+                    content:response.msg,
+                    caption:"Info",
+                    style:{background:'#008523',color:'#FFFFFF','marginRight':'10px'}
+                });
+                $.Dialog.close();
+            });
         }
 
     });

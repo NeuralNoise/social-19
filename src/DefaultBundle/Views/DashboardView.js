@@ -130,11 +130,9 @@ define([
                 var $this = this;
                 var collection = new FindCollection({type:whatFind,limit:parameters.uploadElements,offset:options.offset});
                 collection.fetch({success:function(data){
-                    console.log(data);
                     _.each(data.models,function(model){
                         var itemView = new ItemView(model,whatFind);
                         itemView.show('.listview',{place:'append'});
-
                     });
                     if(data.models.length === parseInt(parameters.uploadElements,10)) {
                         $this.dynamicUpload(whatFind);
