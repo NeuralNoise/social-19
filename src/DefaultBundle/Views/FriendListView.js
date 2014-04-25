@@ -22,8 +22,9 @@ define(['jquery',
                    return false;
                }
                this.user = options.user;
+               this.invitations = (options.invitations !== undefined) ? true : false;
                this.userList = new UserCollection();
-               this.userList.url +='/friends/id/'+this.user.uid;
+               this.userList.url +=(this.invitations === false) ? '/friends/id/'+this.user.uid : '/checkinvite';
                this.helper = Object.create(Helper);
                this.userModel = new UserModel();
                this.userModel.url =  this.userModel.url + '/getuser/id/'+this.user.uid;
@@ -39,10 +40,8 @@ define(['jquery',
                     $.Metro.initDropdowns();
                     $('.inner-content').html($this.template({user:$this.userModel.toJSON()}));
                     _.each($this.userList.models,function(friend){
-                       var user = new UserView(friend);
+                       var user = new UserView(friend,$this.invitations);
                     });
-                    console.log($this.userList.models[0].get('users'));
-
                 });
                 return this;
             }

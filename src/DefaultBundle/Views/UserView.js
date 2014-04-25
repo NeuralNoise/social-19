@@ -6,17 +6,21 @@ define(['jquery','underscore','backbone','text!../Templates/UserTemplate.html'],
         template: _.template(UserTemplate),
         tagName:'tr',
         events:{
-            'click .delete-user':'deleteUser'
+            'click .delete-user':'deleteUser',
+            'click .refuse-invite' : 'refuseInvite'
         },
 
-        initialize:function(model){
+        initialize:function(model,invitations){
             this.model = model;
+            this.invitations = invitations;
             this.listenTo(this.model,'destroy',this.delete);
             this.render();
         },
 
         render:function(){
-            $('.friendlist tbody').append(this.$el.html(this.template(this.model.toJSON())));
+            var data = this.model.toJSON();
+            data.invitations=this.invitations;
+            $('.friendlist tbody').append(this.$el.html(this.template(data)));
             return this;
         },
 
@@ -29,6 +33,28 @@ define(['jquery','underscore','backbone','text!../Templates/UserTemplate.html'],
         delete:function(userModel){
             this.$el.fadeOut('fast',function(){
                 $(this).remove();
+            });
+        },
+
+        refuseInvite:function(event){
+            var row = $(event.target).parents('tr');
+            var id = $(event.target).attr('alt');
+            $.get('/server/users/refuseinvite/id/'+id,function(response){
+                if(response.status===200) {
+                    row.fadeOut();
+                    $.Notify({
+                        content: response.msg,
+                        caption:"Info",
+                        style:{background:'#971515',color:'#FFFFFF'}
+
+                    });
+                    $('.invitations-number').text(parseInt($('.invitations-number').text())-1);
+                    if(parseInt($('.invitations-number').text())===0) {
+                        $('.invitations-number').text('');
+                        $('.friendlist').html("<h2>You don't have invitations</h2>");
+                    }
+                }
+
             });
         }
     });

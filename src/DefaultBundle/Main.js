@@ -9,7 +9,8 @@ define([ "./Views/Main",
          './Views/DashboardView',
          '../CommonBundle/User/User',
          './Views/ProfileView',
-         './Views/FriendListView'], function (MainView,SignView,HomeView,DashboardView,User,ProfileView,FriendListView) {
+         './Views/FriendListView'
+         ], function (MainView,SignView,HomeView,DashboardView,User,ProfileView,FriendListView) {
 
     'use strict';
     /**
@@ -38,13 +39,11 @@ define([ "./Views/Main",
         $.Metro.initDropdowns();
         //initialize user instance
         var user = new User();
-        console.log(user);
         console.log(path);
         //If user already authenticated, redirect it to dashboard panel
         if(user.uid !== null) {
             Router.navigate('#/dashboard',{triger:true});
         }
-
 
         if(path === null) {
            var homeView = new HomeView();
@@ -88,6 +87,15 @@ define([ "./Views/Main",
             var dashboard = new DashboardView({user:user,router:Router});
             var friendlistView = new FriendListView({user:user,router:Router});
             this.swap(friendlistView);
+            application=true;
+        });
+
+        Router.route('invitations','invitations',function(){
+            console.log('invitations');
+            var dashboard = new DashboardView({user:user,router:Router});
+            var invitations=true;
+            var invitationsView = new FriendListView({user:user,router:Router,invitations:invitations});
+            this.swap(invitationsView);
             application=true;
         });
 

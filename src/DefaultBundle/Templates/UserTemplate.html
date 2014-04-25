@@ -2,7 +2,15 @@
     <td><%= firstname %></td>
     <td><%= lastname %></td>
     <td><%= age %></td>
+     <% if(invitations===false) { %>
     <td style="text-align: right">
         <button alt="<%= id %>" class="small danger delete-user">Delete</button>
         <button class="small info">Write</button>
     </td>
+    <% } else { %>
+    <td style="text-align: right">
+        <button class="small success accept-invite">Accept</button>
+        <button alt="<%= id %>" class="small danger refuse-invite">Refuse</button>
+
+    </td>
+    <% } %>

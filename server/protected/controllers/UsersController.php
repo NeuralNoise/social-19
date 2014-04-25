@@ -48,6 +48,20 @@ class UsersController extends Controller
         }
     }
 
+    public function actionCheckinvite()
+    {
+        $uid = Yii::app()->session['uid'];
+        $invitations = Invitations::model()->with('invitations')->findAllByAttributes(array('to'=>$uid));
+
+        $intivationsAttr = array();
+        foreach($invitations as $key=>$object){
+            $intivationsAttr[$key] = $object->attributes;
+            $intivationsAttr[$key] = $object->invitations->attributes;
+        }
+        $this->sendJSON($intivationsAttr);
+
+    }
+
     public function actionGetuser($id)
     {
         $model = Users::model()->find($id);
@@ -263,6 +277,13 @@ class UsersController extends Controller
         $this->sendJSON(array('status'=>200));
     }
 
+    public function actionRefuseinvite($id)
+    {
+        $currentUser = Yii::app()->session['uid'];
+        $model = Invitations::model()->findByAttributes(array('to'=>$currentUser,'from'=>$id));
+        $model->delete();
+        $this->sendJSON(array('status'=>200,'msg'=>'You have refused the invitation'));
+    }
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.

@@ -41,7 +41,6 @@ define([
                 this.user = options.user;
                 this.userModel = new UserModel();
                 this.userModel.url =  this.userModel.url + '/getuser/id/'+this.user.uid;
-
                 var $this = this;
                 this.userModel.fetch({success:function(){$this.render();}});
 
@@ -49,8 +48,23 @@ define([
 
             },
 
+            checkInvitation:function() {
+                $.get('/server/users/checkinvite',function(response){
+                    console.log(response.length);
+                   if(response.length > 0) {
+                       $('.invitations-number').text(response.length);
+                   }
+                });
+            },
+
+
+
             render:function(){
-                this.showContent(this.template({user:this.userModel.toJSON()}),function(){$.Metro.initDropdowns();});
+                var $this=this;
+                this.showContent(this.template({user:this.userModel.toJSON()}),function(){$.Metro.initDropdowns();
+                    $this.checkInvitation();
+                });
+
                 return this;
             },
 

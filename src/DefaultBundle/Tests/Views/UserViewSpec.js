@@ -40,9 +40,12 @@ define(['src/DefaultBundle/Views/UserView',
 
         it('should contain all neccessary properties',function(){
             expect(userView.tagName).toEqual('tr');
-            var userTemplate = $('tr').html(userView.template(userModel.toJSON()));
+            var invitations = true;
+            var data = userModel.toJSON();
+            data.invitations=invitations;
+            var userTemplate = $('tr').html(userView.template(data));
             expect(typeof userTemplate).toBe('object');
-            var currentTemplate = $('tr').html(_.template(UserTemplate,userModel.toJSON()));
+            var currentTemplate = $('tr').html(_.template(UserTemplate,data));
             expect(userTemplate).toEqual(currentTemplate);
         });
 
