@@ -36,13 +36,20 @@ define(['jquery',
 
             render:function(){
                 var $this = this;
-                this.showContent(this.layout({user:this.userModel.toJSON()}),function(){
-                    $.Metro.initDropdowns();
-                    $('.inner-content').html($this.template({user:$this.userModel.toJSON()}));
-                    _.each($this.userList.models,function(friend){
-                       var user = new UserView(friend,$this.invitations);
+                var emptyValue = (this.invitations) ? "new invitations":"friends";
+                this.userModel.fetch({success:function(){
+                    $this.showContent($this.layout({user:$this.userModel.toJSON()}),function(){
+                        $.Metro.initDropdowns();
+                        if($this.userList.models.length > 0) {
+                            $('.inner-content').html($this.template({user:$this.userModel.toJSON()}));
+                            _.each($this.userList.models,function(friend){
+                                var user = new UserView(friend,$this.invitations);
+                            });
+                        } else {
+                            $('.inner-content').html("<h2>You don't have "+emptyValue+"</h2>");
+                        }
                     });
-                });
+                }});
                 return this;
             }
         });

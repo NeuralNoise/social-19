@@ -186,7 +186,7 @@ define([
                     },
                     onComplete: function(file, response){
                         button.text("Change avatar");
-                        $('.userAvatarImg').attr('src','/public/uploads/profile/98/'+file);
+                        $('.userAvatarImg').attr('src','/public/uploads/profile/'+$this.user.uid+'/'+file);
                         $.Notify({
                             content:'Yout avatar has been changed successfully',
                             caption:"Info",

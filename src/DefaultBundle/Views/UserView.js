@@ -7,7 +7,8 @@ define(['jquery','underscore','backbone','text!../Templates/UserTemplate.html'],
         tagName:'tr',
         events:{
             'click .delete-user':'deleteUser',
-            'click .refuse-invite' : 'refuseInvite'
+            'click .invite' : 'makeChoice'
+
         },
 
         initialize:function(model,invitations){
@@ -36,16 +37,17 @@ define(['jquery','underscore','backbone','text!../Templates/UserTemplate.html'],
             });
         },
 
-        refuseInvite:function(event){
+        makeChoice:function(event){
             var row = $(event.target).parents('tr');
             var id = $(event.target).attr('alt');
-            $.get('/server/users/refuseinvite/id/'+id,function(response){
+            var choice = $(event.target).attr('title');
+            $.get('/server/users/'+choice+'invite/id/'+id,function(response){
                 if(response.status===200) {
                     row.fadeOut();
                     $.Notify({
                         content: response.msg,
                         caption:"Info",
-                        style:{background:'#971515',color:'#FFFFFF'}
+                        style:{background:(choice === 'accept')? '#008523': '#971515',color:'#FFFFFF'}
 
                     });
                     $('.invitations-number').text(parseInt($('.invitations-number').text())-1);
@@ -56,7 +58,8 @@ define(['jquery','underscore','backbone','text!../Templates/UserTemplate.html'],
                 }
 
             });
-        }
+        },
+
     });
 
 

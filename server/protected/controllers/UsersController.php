@@ -39,6 +39,14 @@ class UsersController extends Controller
         //check if inviter already intived this user
         $check = Invitations::model()->findAllBySql("SELECT `id` FROM invitations WHERE `from`=".intval($inviter)." AND `to`=".$userId." LIMIT 0,1");
         if(!$check) {
+            //Next check, if user already have this friend
+            $userModel = Users::model()->findByPk($inviter);
+            if(!empty($userModel->friends)) {
+                $friendsArray = explode(",",$userModel->friends);
+                if(in_array($id,$friendsArray)){
+                    $this->sendJSON(array('status'=>200,'msg'=>'Sorry! But alreadt have this person in friends'));
+                }
+            }
             Invitations::model()->setIsNewRecord(true);
             Invitations::model()->setAttributes(array('from'=>$inviter,'to'=>$userId,'date'=>$date));
             Invitations::model()->insert();
@@ -64,7 +72,7 @@ class UsersController extends Controller
 
     public function actionGetuser($id)
     {
-        $model = Users::model()->find($id);
+        $model = Users::model()->findByPk($id);
         $model->last_login=date("m-d-Y H:i",strtotime($model->last_login));
         $this->sendJSON($model->attributes);
     }
@@ -274,6 +282,18 @@ class UsersController extends Controller
         endforeach;
         $currentUser->friends=implode(",",$newFriend);
         $currentUser->save();
+        //Delete this friend from another user
+        $anotherUser = $this->loadModel($id);
+        $friendsArray = explode(",",$anotherUser->friends);
+        $newFriend = array();
+        foreach($friendsArray as $currentFriend):
+            if(intval($currentFriend)===intval(Yii::app()->session['uid'])){
+                continue;
+            }
+            $newFriend[]=$currentFriend;
+        endforeach;
+        $anotherUser->friends=implode(",",$newFriend);
+        $anotherUser->save();
         $this->sendJSON(array('status'=>200));
     }
 
@@ -283,6 +303,40 @@ class UsersController extends Controller
         $model = Invitations::model()->findByAttributes(array('to'=>$currentUser,'from'=>$id));
         $model->delete();
         $this->sendJSON(array('status'=>200,'msg'=>'You have refused the invitation'));
+    }
+
+    public function actionAcceptinvite($id)
+    {
+        $uid = intval(Yii::app()->session['uid']);
+        $id = intval($id);
+        $userModel = Users::model()->findByPk($uid);
+        if(!empty($userModel->friends)){
+            $friendArray = explode(",",$userModel->friends);
+            $friendArray[]=$id;
+            $newFriendList = implode(",",$friendArray);
+            $userModel->friends = $newFriendList;
+        } else {
+            $userModel->friends = $id;
+        }
+        $userModel->save();
+        $model = Invitations::model()->findByAttributes(array('to'=>$uid,'from'=>$id));
+        $model->delete();
+
+        $inviterModel = Users::model()->findByPk($id);
+        if(!empty($inviterModel->friends)){
+            $friendArray = explode(",",$userModel->friends);
+            $friendArray[]=$uid;
+            $newFriendList = implode(",",$friendArray);
+            $inviterModel->friends = $newFriendList;
+        } else {
+            $inviterModel->friends = $uid;
+        }
+        $inviterModel->save();
+
+        $this->sendJSON(array('status'=>200,'msg'=>'You have successfully added this person to yoe friend list'));
+
+
+
     }
 	/**
 	 * Deletes a particular model.
