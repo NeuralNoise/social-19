@@ -1,0 +1,35 @@
+<div class="span8" style="position: absolute; left: 50%; margin-left: -310px;margin-top: 200px;padding: 20px; background: rgba(255,255,255,0.9)">
+    <div class="chatusers">
+
+    </div>
+    <div class="input-control textarea info-state">
+        <textarea></textarea><button class="success large sendmsg">Send</button>
+    </div>
+    <div class="messages">
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var conn = new WebSocket('ws://localhost:8080');
+        conn.onopen = function(e) {
+            $('.chatusers').append('<p>Me <button class="success small">Online</button></p>');
+            console.log("Connection established!");
+        };
+
+        $('.sendmsg').click(function(){
+            var mesg = $('textarea').val();
+            $('textarea').val('');
+            $('.messages').append("<p><small style='color:#ccc'>Me:</small> "+mesg+"</p>");
+            conn.send(mesg);
+        });
+
+        conn.onmessage = function(e) {
+            console.log(e);
+            $('.messages').append("<p><small style='color:#004D15'>Friend:</small> "+e.data+"</p>");
+        };
+    });
+
+
+
+</script>

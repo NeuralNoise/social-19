@@ -1,0 +1,1 @@
+php ./../server/bin/chat-server.php

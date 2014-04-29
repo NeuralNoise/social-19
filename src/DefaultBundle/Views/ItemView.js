@@ -1,11 +1,17 @@
-define(['backbone','text!../Templates/ItemTemplate.html','public/assets/js/metro-dialog','public/assets/js/metro-touch-handler'],function(Backbone,ItemTemplate){
+define(['backbone',
+        'text!../Templates/ItemTemplate.html',
+        'text!../Templates/ChatBox.html',
+        'public/assets/js/metro-dialog',
+        'public/assets/js/metro-touch-handler'],function(Backbone,ItemTemplate,ChatBox){
 
     var ItemView = Backbone.View.extend({
         tagName:'a',
         className:'list',
         template: _.template(ItemTemplate),
         events:{
-            'click .invitetofriend' :'inviteToFriends'
+            'click .invitetofriend' :'inviteToFriends',
+            'click .writemessage':'writeMessage',
+            'click .invitetochat' :'inviteToChat'
         },
 
         initialize:function(model,type) {
@@ -57,6 +63,60 @@ define(['backbone','text!../Templates/ItemTemplate.html','public/assets/js/metro
                     padding: 10
 
                 });
+        },
+
+        writeMessage:function(event){
+            event.preventDefault();
+            var userName = $.trim($(event.target).parent().find('.list-title').text());
+            //Whom i want to write a message
+            var userId = parseInt($.trim($(event.target).parents('a').attr('id')),10);
+            var $this = this;
+            $.Dialog({
+                shadow: true,
+                overlay: false,
+                draggable:true,
+                icon: '<span class="icon-comments-2"></span>',
+                title: 'Write message to ' + userName,
+                width: 500,
+                onShow: function(_dialog){
+
+                    var content = '<label>Type your message</label><div class="input-control textarea" data-role="input-control">'+
+                        '<textarea class="messageToUser"></textarea>'+
+                        '</div><button class="success large sendmessage">Send</button>';
+                    $.Dialog.content(content);
+                    $('.sendmessage').on('click',{userId:userId},$this.sendMessage);
+
+                },
+                padding: 10
+
+            });
+        },
+        inviteToChat:function(event){
+            console.log(this.model);
+            var $this = this;
+            event.preventDefault();
+            var userName = $.trim($(event.target).parent().find('.list-title').text());
+            //Whom i want to write a message
+            var userId = parseInt($.trim($(event.target).parents('a').attr('id')),10);
+            $.get('/server/sapi/runchat',function(){});
+            var chatbox = _.template(ChatBox,$this.model.toJSON());
+            $(chatbox).hide().appendTo('body').fadeIn();
+
+
+        },
+        sendMessage:function(event){
+            $.ajax({
+                type:'POST',
+                url:'/server/users/writemessage/id/'+event.data.userId,
+                data:{message:$('.messageToUser').val()},
+                success:function(response){
+                    $.Notify({
+                        content:response.msg,
+                        caption:"Info",
+                        style:{background:'#008523',color:'#FFFFFF','marginRight':'10px'}
+                    });
+                    $.Dialog.close();
+                }});
         },
 
         confirmInvite:function(event) {

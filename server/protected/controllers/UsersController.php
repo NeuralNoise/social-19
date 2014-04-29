@@ -305,6 +305,17 @@ class UsersController extends Controller
         $this->sendJSON(array('status'=>200,'msg'=>'You have refused the invitation'));
     }
 
+    public function actionWritemessage($id)
+    {
+        $to = intval($id);
+        $from = intval(Yii::app()->session['uid']);
+        $date = date('Y-m-d H:i:s');
+        $messageModel = new Messages();
+        $messageModel->attributes = array('from'=>$from,'to'=>$to,'message'=>$_POST['message'],'date'=>$date);
+        $messageModel->save(false);
+        $this->sendJSON(array('status'=>200,'msg'=>'You have successfully sent a message'));
+    }
+
     public function actionAcceptinvite($id)
     {
         $uid = intval(Yii::app()->session['uid']);

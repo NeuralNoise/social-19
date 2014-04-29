@@ -77,6 +77,13 @@ class SapiController extends Controller
 
     }
 
+    public function actionRunchat()
+    {
+        $root = $_SERVER['DOCUMENT_ROOT'];
+        var_dump(exec($root."/app/chat.sh"));
+        echo $this->sendJSON(array('status'=>200));
+    }
+
     public function actionUpload()
     {
 
